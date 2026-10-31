@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowRight, ArrowUpRight, Leaf, MapPin, Play, TreePine } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Leaf, MapPin, Menu, Play, TreePine, X } from "lucide-react";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
 
@@ -27,6 +27,7 @@ export default function Home() {
   const [moment, setMoment] = useState(-1);
   const [muted, setMuted] = useState(true);
   const [playBlocked, setPlayBlocked] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const revealMasterplan = useCallback(() => {
     activeMomentRef.current = -1;
@@ -140,7 +141,17 @@ export default function Home() {
 
       <section className="masterplan" id="masterplan" aria-hidden={phase !== "masterplan"}>
         <div className="masterplan-bg" /><div className="masterplan-wash" />
-        <header className="site-header"><a className="brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a><nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="mailto:hello@mariettamuse.com">Contact</a></nav><p>A simpler tomorrow</p></header>
+        <header className="site-header">
+          <a className="brand desktop-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
+          <a className="brand mobile-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
+          <button className="hamburger" type="button" aria-label="Open navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={22} strokeWidth={1.4} /></button>
+          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a></nav><p>A simpler tomorrow</p>
+        </header>
+        <div className={`mobile-menu ${mobileMenuOpen ? "is-open" : ""}`} aria-hidden={!mobileMenuOpen}>
+          <div className="mobile-menu-head"><span>Marietta Muse</span><button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={18} /></button></div>
+          <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><a href="#location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</a><a href="#contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</a></nav>
+          <p>Marietta, Oklahoma<br />A simpler tomorrow</p>
+        </div>
         <div className="masterplan-copy"><div className="eyebrow">The masterplan</div><h2>Designed for<br /><em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
         <div className="feature-list" aria-label="Community features">
           {features.map(({ className, icon: Icon, title, detail }) => <button className={`feature ${className}`} type="button" key={title}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>)}
@@ -181,7 +192,23 @@ export default function Home() {
           <div className="location-note"><p>A quiet landscape, a close-knit community and an easier rhythm—rooted in southern Oklahoma.</p><a href="https://maps.google.com/?q=Marietta,Oklahoma" target="_blank" rel="noreferrer">View location <ArrowRight size={14} /></a></div>
         </section>
 
-        <footer className="closing-section" id="contact">
+        <section className="contact-section" id="contact">
+          <div className="contact-intro">
+            <div className="section-kicker light">Contact us</div>
+            <h2>Let&apos;s find your<br /><em>place here.</em></h2>
+            <p>Tell us a little about what you are looking for. We will help you explore cottages, availability and life at Marietta Muse.</p>
+            <a href="mailto:hello@mariettamuse.com">hello@mariettamuse.com</a>
+          </div>
+          <form className="contact-form" action="mailto:hello@mariettamuse.com" method="post" encType="text/plain">
+            <label><span>Your name</span><input type="text" name="name" autoComplete="name" placeholder="Full name" required /></label>
+            <label><span>Email address</span><input type="email" name="email" autoComplete="email" placeholder="you@example.com" required /></label>
+            <label><span>I&apos;m interested in</span><select name="interest" defaultValue=""><option value="" disabled>Select an option</option><option>Rental availability</option><option>Cottage designs</option><option>Location and visits</option><option>Something else</option></select></label>
+            <label className="message-field"><span>Your message</span><textarea name="message" placeholder="Tell us what you would like to know" rows={4} required /></label>
+            <button type="submit">Send enquiry <ArrowUpRight size={15} /></button>
+          </form>
+        </section>
+
+        <footer className="closing-section">
           <div className="closing-top"><div><div className="section-kicker light"><span>Marietta Muse</span> Oklahoma</div><h2>Come home<br />to <em>a little more.</em></h2></div><a className="contact-pill" href="mailto:hello@mariettamuse.com">Start a conversation <ArrowUpRight size={16} /></a></div>
           <div className="closing-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
         </footer>
