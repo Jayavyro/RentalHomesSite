@@ -210,6 +210,7 @@ export default function Home() {
 
         <footer className="closing-section">
           <div className="closing-top"><div><div className="section-kicker light"><span>Marietta Muse</span> Oklahoma</div><h2>Come home<br />to <em>a little more.</em></h2></div><a className="contact-pill" href="mailto:hello@mariettamuse.com">Start a conversation <ArrowUpRight size={16} /></a></div>
+          <nav className="footer-sitemap" aria-label="Sitemap"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a><a href="/login">Login</a></nav>
           <div className="closing-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
         </footer>
       </div>
