@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowDown, ArrowRight, ArrowUpRight, Leaf, MapPin, Menu, Play, TreePine, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
 
@@ -13,9 +13,8 @@ const moments = [
 ];
 
 const features = [
-  { className: "feature-private", icon: MapPin, title: "Private plots", detail: "A little space to truly call your own." },
-  { className: "feature-trails", icon: TreePine, title: "Shaded trails", detail: "Winding paths through mature green buffers." },
-  { className: "feature-garden", icon: Leaf, title: "Shared garden", detail: "A landscape designed for everyday connection." },
+  { className: "feature-private", icon: House, title: "Cottages", detail: "Modern one- and two-bedroom cottages, each with a private outdoor edge." },
+  { className: "feature-garden", icon: Droplets, title: "Lifestyle", detail: "A landscaped fountain at the heart of everyday community life." },
 ];
 
 export default function Home() {
