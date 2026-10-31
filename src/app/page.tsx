@@ -118,8 +118,8 @@ export default function Home() {
   return (
     <main className={`experience phase-${phase}`}>
       <video ref={videoRef} className="entry-film" muted={muted} playsInline preload="auto" poster="/media/landscape-poster.jpg" onEnded={revealMasterplan} onError={revealMasterplan} aria-label="A cinematic introduction to Marietta Muse">
-        <source media="(max-width: 767px)" src="/media/entry-video-mobile.mp4" type="video/mp4" />
-        <source src="/media/entry-video-desktop.mp4" type="video/mp4" />
+        <source media="(max-width: 767px)" src="/media/entry-video-mobile-hq.mp4" type="video/mp4" />
+        <source src="/media/entry-video-desktop-hq.mp4" type="video/mp4" />
       </video>
       <div className="film-grade" aria-hidden="true" />
 
