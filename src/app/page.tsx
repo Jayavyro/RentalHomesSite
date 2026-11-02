@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowRight, ArrowUpRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
@@ -25,6 +27,7 @@ const features = [
 ];
 
 export default function Home() {
+  const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressBarRef = useRef<HTMLElement>(null);
   const activeMomentRef = useRef(-1);
@@ -35,6 +38,7 @@ export default function Home() {
   const [playBlocked, setPlayBlocked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [masterplanView, setMasterplanView] = useState<MasterplanView>("complete");
+  const [cottageTransition, setCottageTransition] = useState(false);
 
   const revealMasterplan = useCallback(() => {
     activeMomentRef.current = -1;
@@ -112,6 +116,16 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, [phase]);
 
+  useEffect(() => {
+    router.prefetch("/cottages");
+  }, [router]);
+
+  const openCottages = () => {
+    if (cottageTransition) return;
+    setCottageTransition(true);
+    window.setTimeout(() => router.push("/cottages"), 760);
+  };
+
   const replay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -134,7 +148,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`experience phase-${phase}`}>
+    <main className={`experience phase-${phase}${cottageTransition ? " is-cottage-transition" : ""}`}>
       <video ref={videoRef} className="entry-film" muted={muted} playsInline preload="auto" poster="/media/landscape-poster.jpg" onEnded={revealMasterplan} onError={revealMasterplan} aria-label="A cinematic introduction to Marietta Muse">
         <source media="(max-width: 767px)" src="/media/entry-video-mobile-hq.mp4" type="video/mp4" />
         <source src="/media/entry-video-desktop-hq.mp4" type="video/mp4" />
@@ -179,7 +193,11 @@ export default function Home() {
         </div>
         <div className="masterplan-copy"><div className="eyebrow">The masterplan <span>· {masterplanViews.find((view) => view.id === masterplanView)?.label}</span></div><h2>Designed for <em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
         <div className={`feature-list is-visible view-${masterplanView}`} data-view={masterplanView} aria-label="Community features">
-          {features.map(({ className, icon: Icon, title, detail }) => <button className={`feature ${className}`} type="button" key={title}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>)}
+          {features.map(({ className, icon: Icon, title, detail }) => className === "feature-private" ? (
+            <Link className={`feature ${className}`} href="/cottages" key={title} aria-label="Explore the cottage collection" onClick={(event) => { event.preventDefault(); openCottages(); }}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></Link>
+          ) : (
+            <button className={`feature ${className}`} type="button" key={title} aria-label={title}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>
+          ))}
         </div>
         <div className="masterplan-foot"><button type="button" onClick={replay}><Play size={12} fill="currentColor" /> Replay film</button><div><strong>65%</strong><span>Dedicated<br />open nature</span></div><p>Design&nbsp; / &nbsp;Layout</p></div>
       </section>
