@@ -21,7 +21,6 @@ const cottageTypes = [
 
 export default function CottagesPage() {
   const router = useRouter();
-
   return (
     <main className="cottage-page">
       <section className="cottage-hero">
