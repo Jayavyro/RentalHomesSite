@@ -5,6 +5,13 @@ import Image from "next/image";
 import { ArrowDown, ArrowRight, ArrowUpRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
+type MasterplanView = "phase-one" | "complete" | "original";
+
+const masterplanViews: { id: MasterplanView; label: string; image: string }[] = [
+  { id: "phase-one", label: "Phase 1", image: "/media/masterplan-phase-1.jpg" },
+  { id: "complete", label: "Full plan", image: "/media/masterplan-new.jpg" },
+  { id: "original", label: "Original", image: "/media/masterplan-aerial.jpg" },
+];
 
 const moments = [
   { from: 0.08, to: 0.37, kicker: "A new way home", lead: "Something beautiful", accent: "is taking root." },
@@ -27,6 +34,7 @@ export default function Home() {
   const [muted, setMuted] = useState(true);
   const [playBlocked, setPlayBlocked] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [masterplanView, setMasterplanView] = useState<MasterplanView>("complete");
 
   const revealMasterplan = useCallback(() => {
     activeMomentRef.current = -1;
@@ -38,7 +46,7 @@ export default function Home() {
   const startFilm = useCallback(async () => {
     const video = videoRef.current;
     if (!video) return;
-    video.playbackRate = 0.65;
+    video.playbackRate = 1;
     setPhase("film");
     setPlayBlocked(false);
     try { await video.play(); } catch { setPlayBlocked(true); }
@@ -93,6 +101,17 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (phase !== "masterplan" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setInterval(() => {
+      setMasterplanView((current) => {
+        const currentIndex = masterplanViews.findIndex((view) => view.id === current);
+        return masterplanViews[(currentIndex + 1) % masterplanViews.length].id;
+      });
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [phase]);
+
   const replay = () => {
     const video = videoRef.current;
     if (!video) return;
@@ -105,7 +124,7 @@ export default function Home() {
       if (started) return;
       started = true;
       video.removeEventListener("seeked", playFromStart);
-      video.playbackRate = 0.65;
+      video.playbackRate = 1;
       setPhase("film");
       window.requestAnimationFrame(() => { void video.play(); });
     };
@@ -139,20 +158,27 @@ export default function Home() {
       </section>
 
       <section className="masterplan" id="masterplan" aria-hidden={phase !== "masterplan"}>
-        <div className="masterplan-bg" /><div className="masterplan-wash" />
+        <div className="masterplan-gallery" aria-hidden="true">
+          {masterplanViews.map((view) => <Image className={masterplanView === view.id ? "is-active" : ""} key={view.id} src={view.image} alt="" fill priority={view.id === "complete"} sizes="100vw" />)}
+        </div>
+        <div className="masterplan-wash" />
         <header className="site-header">
           <a className="brand desktop-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
           <a className="brand mobile-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
-          <button className="hamburger" type="button" aria-label="Open navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={22} strokeWidth={1.4} /></button>
-          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a></nav><p>A simpler tomorrow</p>
+          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a></nav>
+          <div className="plan-switcher" role="group" aria-label="Choose a master plan view">
+            <span>A simpler tomorrow</span>
+            <div>{masterplanViews.map((view) => <button className={masterplanView === view.id ? "is-active" : ""} type="button" key={view.id} onClick={() => setMasterplanView(view.id)} aria-pressed={masterplanView === view.id}>{view.label}</button>)}</div>
+          </div>
+          <button className="hamburger" type="button" aria-label="Open navigation menu" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} strokeWidth={1.5} /></button>
         </header>
         <div className={`mobile-menu ${mobileMenuOpen ? "is-open" : ""}`} aria-hidden={!mobileMenuOpen}>
           <div className="mobile-menu-head"><span>Marietta Muse</span><button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={18} /></button></div>
           <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><a href="#location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</a><a href="#contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</a></nav>
           <p>Marietta, Oklahoma<br />A simpler tomorrow</p>
         </div>
-        <div className="masterplan-copy"><div className="eyebrow">The masterplan</div><h2>Designed for<br /><em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
-        <div className="feature-list" aria-label="Community features">
+        <div className="masterplan-copy"><div className="eyebrow">The masterplan <span>· {masterplanViews.find((view) => view.id === masterplanView)?.label}</span></div><h2>Designed for <em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
+        <div className={`feature-list is-visible view-${masterplanView}`} data-view={masterplanView} aria-label="Community features">
           {features.map(({ className, icon: Icon, title, detail }) => <button className={`feature ${className}`} type="button" key={title}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>)}
         </div>
         <div className="masterplan-foot"><button type="button" onClick={replay}><Play size={12} fill="currentColor" /> Replay film</button><div><strong>65%</strong><span>Dedicated<br />open nature</span></div><p>Design&nbsp; / &nbsp;Layout</p></div>
