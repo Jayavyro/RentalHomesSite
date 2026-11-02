@@ -159,7 +159,7 @@ export default function Home() {
 
       <section className="masterplan" id="masterplan" aria-hidden={phase !== "masterplan"}>
         <div className="masterplan-gallery" aria-hidden="true">
-          {masterplanViews.map((view) => <Image className={masterplanView === view.id ? "is-active" : ""} key={view.id} src={view.image} alt="" fill priority={view.id === "complete"} sizes="100vw" />)}
+          {masterplanViews.map((view) => <Image className={masterplanView === view.id ? "is-active" : ""} key={view.id} src={view.image} alt="" fill priority={view.id === "complete"} quality={92} sizes="100vw" />)}
         </div>
         <div className="masterplan-wash" />
         <header className="site-header">
