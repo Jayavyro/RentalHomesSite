@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Menu, X } from "lucide-react";
 import { useState } from "react";
+import SiteNav from "../../components/SiteNav";
 
 export default function OneBedroomPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,12 +13,7 @@ export default function OneBedroomPage() {
     <main className="one-bedroom-page one-bedroom-original">
       <header className="one-bedroom-header">
         <Link className="one-bedroom-brand" href="/cottages"><span>M</span><b>Marietta Muse</b></Link>
-        <nav className="one-bedroom-nav" aria-label="Main navigation">
-          <Link href="/#masterplan">Design &amp; Layout</Link>
-          <Link className="is-active" href="/cottages">Rentals</Link>
-          <Link href="/location">Location</Link>
-          <a href="mailto:hello@mariettamuse.com">Contact</a>
-        </nav>
+        <SiteNav className="one-bedroom-nav" active="rentals" />
         <a className="one-bedroom-enquire" href="mailto:hello@mariettamuse.com">Enquire <ArrowUpRight size={13} /></a>
         <button className="one-bedroom-menu" type="button" aria-label="Open navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} /></button>
       </header>
@@ -45,7 +41,7 @@ export default function OneBedroomPage() {
 
         <picture className="one-bedroom-visual">
           <source media="(max-width: 760px)" srcSet="/media/cottages/one-bedroom-cutout-mobile.webp" />
-          <Image src="/media/cottages/one-bedroom-cutout-desktop.webp" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1774} height={887} priority quality={95} sizes="(max-width: 760px) 77vw, 42vw" />
+          <Image src="/media/cottages/one-bedroom-cutout-desktop.webp" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1774} height={887} priority quality={95} sizes="(max-width: 760px) 102vw, 55vw" />
         </picture>
 
         <aside className="one-bedroom-facts" aria-label="One-bedroom cottage facts">

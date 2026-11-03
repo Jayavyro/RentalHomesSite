@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Car, MapPin, Trees, Sparkles } from "lucide-react";
+import SiteNav from "../components/SiteNav";
+import MobileSiteNav from "../components/MobileSiteNav";
 
 const quickFacts = [
   { label: "Address", value: "16983 Tabler Rd", note: "Marietta, Oklahoma" },
@@ -40,15 +42,11 @@ export default function LocationPage() {
         <Link className="location-brand" href="/#masterplan" aria-label="Back to masterplan">
           <span>M</span><b>Marietta Muse</b>
         </Link>
-        <nav aria-label="Main navigation">
-          <Link href="/#masterplan">Design &amp; Layout</Link>
-          <Link href="/cottages">Rentals</Link>
-          <Link className="is-active" href="/location">Location</Link>
-          <Link href="/contact">Contact</Link>
-        </nav>
+        <SiteNav active="location" />
         <a className="location-enquire" href="mailto:hello@mariettamuse.com" aria-label="Enquire">
           Enquire <ArrowUpRight size={13} aria-hidden="true" />
         </a>
+        <MobileSiteNav />
       </header>
 
       <section className="location-hero">

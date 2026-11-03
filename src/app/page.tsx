@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
+import SiteNav from "./components/SiteNav";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
 type MasterplanView = "phase-one" | "complete" | "original";
@@ -252,7 +253,7 @@ export default function Home() {
         <header className="site-header">
           <a className="brand desktop-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
           <a className="brand mobile-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
-          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><Link href="/contact">Contact</Link></nav>
+          <SiteNav designHref="#vision" rentalsHref="#rentals" active="design" />
           <div className="plan-switcher" role="group" aria-label="Choose a master plan view">
             <span>A simpler tomorrow</span>
             <div>{masterplanViews.map((view) => <button className={masterplanView === view.id ? "is-active" : ""} type="button" key={view.id} onClick={() => setMasterplanView(view.id)} aria-pressed={masterplanView === view.id}>{view.label}</button>)}</div>

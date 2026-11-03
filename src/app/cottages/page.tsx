@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUpRight, ChevronDown, House, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import SiteNav from "../components/SiteNav";
 
 const cottageTypes = [
   {
@@ -45,7 +45,8 @@ export default function CottagesPage() {
   }, []);
   const returnToMasterplan = () => {
     window.sessionStorage.setItem("marietta-return-to-masterplan", "true");
-    router.back();
+    // Navigate explicitly instead of router.back(): history may hold the 1 BHK page.
+    router.push("/#masterplan");
   };
   return (
     <main className="cottage-page">
@@ -66,7 +67,7 @@ export default function CottagesPage() {
 
         <header className="cottage-header">
           <button className="cottage-brand" type="button" onClick={returnToMasterplan} aria-label="Return to the master plan"><span>M</span><b>Marietta Muse</b></button>
-          <nav className="cottage-desktop-nav" aria-label="Main navigation" style={{ display: "flex", alignItems: "center", gap: "clamp(22px, 3vw, 46px)", padding: "14px 24px", border: "1px solid rgba(255,255,255,.28)", borderRadius: "999px", background: "rgba(255,255,255,.11)", backdropFilter: "blur(16px)", fontSize: "8px", letterSpacing: ".18em", textTransform: "uppercase" }}><Link href="/#masterplan">Design &amp; Layout</Link><a href="#plan">Rentals</a><Link href="/location">Location</Link><a href="mailto:hello@mariettamuse.com">Contact</a></nav>
+          <SiteNav className="cottage-desktop-nav" rentalsHref="#plan" active="rentals" />
           <a href="mailto:hello@mariettamuse.com">Enquire <ArrowUpRight size={13} /></a>
           <button className="cottage-hamburger" type="button" aria-label="Open cottage navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} strokeWidth={1.5} /></button>
         </header>

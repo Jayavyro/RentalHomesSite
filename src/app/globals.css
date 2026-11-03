@@ -791,10 +791,8 @@ button,a { font:inherit; } button { border:0; } a { color:inherit; text-decorati
   color: #fff; /* white text */
 }
 
-/* Add top margin to contact page */
-.contact-page {
-  margin-top: 2rem;
-}
+/* The contact header starts flush with the viewport. */
+.contact-page { margin-top: 0; }
 
 /* Navbar text size and font adjustments */
 /* Site-wide header navigation */
@@ -880,7 +878,7 @@ button,a { font:inherit; } button { border:0; } a { color:inherit; text-decorati
 .one-bedroom-original .one-bedroom-copy{position:absolute;z-index:3;top:30%;left:clamp(24px,4.5vw,72px);width:min(350px,25vw)}
 .one-bedroom-original .one-bedroom-copy h1{margin:22px 0 18px;font-size:clamp(36px,3.35vw,54px)}
 .one-bedroom-original .one-bedroom-copy>span{max-width:310px;font-size:13px}
-.one-bedroom-original .one-bedroom-visual{position:absolute;z-index:1;top:32%;right:12%;width:42%;height:auto;aspect-ratio:1774/887}
+.one-bedroom-original .one-bedroom-visual{position:absolute;z-index:1;top:27%;right:5.3%;width:55.4%;height:auto;aspect-ratio:1774/887}
 .one-bedroom-original .one-bedroom-visual img{display:block;width:100%;height:auto;object-fit:contain}
 .one-bedroom-original .one-bedroom-facts{position:absolute;right:clamp(24px,3.5vw,58px);bottom:13%;width:auto;grid-template-columns:auto auto;padding:22px 25px}
 .one-bedroom-original .one-bedroom-feature-strip{position:absolute;right:0;bottom:0;left:0;padding:25px clamp(150px,18vw,340px);animation:oneBedroomFade .65s ease .55s both}
@@ -892,7 +890,7 @@ button,a { font:inherit; } button { border:0; } a { color:inherit; text-decorati
   .one-bedroom-original .one-bedroom-copy{top:15%;left:21px;width:calc(100% - 42px)}
   .one-bedroom-original .one-bedroom-copy h1{max-width:330px;margin:16px 0 12px;font-size:clamp(38px,11.4vw,52px)}
   .one-bedroom-original .one-bedroom-copy>span{max-width:315px;font-size:11px}
-  .one-bedroom-original .one-bedroom-visual{top:46%;right:11.5%;width:77%;height:auto;aspect-ratio:1774/887}
+  .one-bedroom-original .one-bedroom-visual{top:43%;right:-.8%;width:101.6%;height:auto;aspect-ratio:1774/887}
   .one-bedroom-original .one-bedroom-facts{right:20px;bottom:14.5%;grid-template-columns:repeat(6,auto);padding:14px 16px}
   .one-bedroom-original .one-bedroom-feature-strip{grid-template-columns:repeat(2,1fr);padding:18px 20px 50px}
   .one-bedroom-original .one-bedroom-back{bottom:17px;left:21px}
@@ -915,4 +913,15 @@ button,a { font:inherit; } button { border:0; } a { color:inherit; text-decorati
 .lx-tag{display:flex;align-items:center;gap:9px;color:#8e7656;font-size:9px;letter-spacing:.16em;text-transform:uppercase}.lx-main h3{margin:15px 0 9px;font:400 clamp(27px,2.5vw,40px)/1.06 var(--serif)}.lx-main p{max-width:610px;margin:0;color:#58645b;font-size:14px;line-height:1.75}.lx-main a{display:inline-flex;align-items:center;gap:8px;margin-top:17px;color:#52644f;font-size:9px;letter-spacing:.14em;text-transform:uppercase}.lx-time{color:#334437;font:400 clamp(19px,2vw,27px) var(--serif);white-space:nowrap}
 .lx-cta{display:flex;align-items:end;justify-content:space-between;gap:32px;padding:clamp(65px,7vw,105px) clamp(24px,7vw,120px);background:#1e2a22;color:#f4ede0}.lx-kicker.light{color:#d1b890}.lx-cta h2 em{color:#c8b896;font-weight:400}.lx-cta-actions{display:flex;flex-wrap:wrap;gap:12px}.lx-cta-actions a{display:inline-flex;align-items:center;justify-content:space-between;gap:25px;padding:14px 17px;border:1px solid rgba(244,237,224,.42);border-radius:999px;color:#f4ede0;font-size:9px;letter-spacing:.14em;text-transform:uppercase}
 @media(max-width:760px){.lx-intro{grid-template-columns:1fr;gap:35px;padding:70px 22px}.lx-intro h2{font-size:clamp(42px,12vw,58px)}.lx-intro-copy>p{font-size:14px}.lx-facts{padding:15px 23px}.lx-facts>div{grid-template-columns:105px 1fr;padding:17px 0}.lx-facts dt{font-size:8px}.lx-facts dd{font-size:20px}.lx-facts small{font-size:10px}.lx-nearby{padding:67px 22px}.lx-nearby-head{display:block;margin-bottom:32px}.lx-nearby h2{margin-top:20px;font-size:clamp(39px,11vw,54px)}.lx-nearby-head>p{margin-top:16px}.lx-list li{grid-template-columns:35px 1fr;gap:11px;padding:27px 0}.lx-num{font-size:17px}.lx-main h3{font-size:29px}.lx-main p{font-size:12px}.lx-time{grid-column:2;font-size:18px}.lx-cta{align-items:flex-start;flex-direction:column;padding:66px 22px}.lx-cta h2{font-size:clamp(44px,12vw,60px)}.lx-cta-actions{width:100%;flex-direction:column}.lx-cta-actions a{width:100%}}
+
+/* One navigation treatment across the five site screens. */
+.site-header .site-nav,.cottage-header .site-nav,.one-bedroom-header .site-nav,.location-header .site-nav{display:flex;align-items:center;gap:clamp(22px,3vw,56px);padding:16px 30px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(255,255,255,.11);backdrop-filter:blur(12px);color:#fff;font-family:var(--sans);font-size:clamp(10px,.75vw,14px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.site-header .site-nav a,.cottage-header .site-nav a,.one-bedroom-header .site-nav a,.location-header .site-nav a{color:inherit;font:inherit;letter-spacing:inherit;opacity:.72;transition:opacity .2s ease}
+.site-header .site-nav a:hover,.cottage-header .site-nav a:hover,.one-bedroom-header .site-nav a:hover,.location-header .site-nav a:hover,.site-nav a.is-active{opacity:1}
+.one-bedroom-header .site-nav{border-color:rgba(62,50,38,.22);background:rgba(255,255,255,.34);color:#342d24}
+.contact-page .location-header{padding-top:25px;padding-bottom:25px}
+@media(max-width:760px){.site-header .site-nav,.cottage-header .site-nav,.one-bedroom-header .site-nav,.location-header .site-nav{display:none}}
+.standard-mobile-nav{display:none}
+@media(max-width:760px){.standard-mobile-nav{justify-self:end;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.48);border-radius:50%;color:#fff;background:rgba(18,29,20,.32);cursor:pointer}.standard-mobile-menu{z-index:60}}
+@media(max-width:760px){.location-header .standard-mobile-menu nav{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:11vh;padding:0;border:0;border-radius:0;background:transparent;backdrop-filter:none}.location-header .standard-mobile-menu nav a{font:400 clamp(30px,9vw,42px)/1 var(--serif);letter-spacing:-.02em;opacity:1}}
 

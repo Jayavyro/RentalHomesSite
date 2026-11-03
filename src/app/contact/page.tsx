@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Clock, Mail, MapPin } from "lucide-react";
+import SiteNav from "../components/SiteNav";
+import MobileSiteNav from "../components/MobileSiteNav";
 
 export const metadata: Metadata = {
   title: "Contact · Marietta Muse",
@@ -20,15 +22,11 @@ export default function ContactPage() {
         <Link className="location-brand" href="/#masterplan" aria-label="Back to masterplan">
           <span>M</span><b>Marietta Muse</b>
         </Link>
-        <nav aria-label="Main navigation">
-          <Link href="/#masterplan">Design &amp; Layout</Link>
-          <Link href="/cottages">Rentals</Link>
-          <Link href="/location">Location</Link>
-          <Link className="is-active" href="/contact">Contact</Link>
-        </nav>
+        <SiteNav active="contact" />
         <a className="location-enquire" href="mailto:hello@mariettamuse.com" aria-label="Email us">
           Email us <ArrowUpRight size={13} aria-hidden="true" />
         </a>
+        <MobileSiteNav />
       </header>
 
       <section className="cp-hero">
