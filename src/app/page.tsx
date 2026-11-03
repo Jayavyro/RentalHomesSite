@@ -130,14 +130,17 @@ export default function Home() {
     router.prefetch("/cottages");
   }, [router]);
 
+  useEffect(() => {
+    const clearCottageTransition = () => setCottageTransition(false);
+    window.addEventListener("popstate", clearCottageTransition);
+    return () => window.removeEventListener("popstate", clearCottageTransition);
+  }, []);
+
   const openCottages = () => {
     if (cottageTransition) return;
     setCottageTransition(true);
     window.setTimeout(() => {
       router.push("/cottages");
-      // Keep the departure image intact until navigation begins, then clear
-      // transient state for a clean browser-back restore.
-      window.setTimeout(() => setCottageTransition(false), 0);
     }, 760);
   };
 

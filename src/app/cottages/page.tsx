@@ -128,6 +128,23 @@ export default function CottagesPage() {
           <a href="mailto:hello@mariettamuse.com">Enquire about a cottage <ArrowUpRight size={15} /></a>
         </div>
       </section>
+
+      <footer className="cottage-site-footer">
+        <div className="cottage-footer-top">
+          <div>
+            <p>Marietta Muse <span>·</span> Oklahoma</p>
+            <h2>Find your<br /><em>place here.</em></h2>
+          </div>
+          <a href="mailto:hello@mariettamuse.com">Start a conversation <ArrowUpRight size={15} /></a>
+        </div>
+        <nav aria-label="Cottage footer navigation">
+          <a href="#exterior">Outside in</a>
+          <a href="#plan">The plan</a>
+          <a href="#craft">Materials</a>
+          <button type="button" onClick={() => router.back()}>Back to masterplan</button>
+        </nav>
+        <div className="cottage-footer-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
+      </footer>
     </main>
   );
 }
