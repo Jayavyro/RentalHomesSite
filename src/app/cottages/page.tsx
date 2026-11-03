@@ -68,11 +68,14 @@ export default function CottagesPage() {
 
       <section className="cottage-details" aria-label="Cottage details">
         <div className="cottage-details-intro">
-          <p>Small footprint <span>·</span> Full feeling</p>
+          <div className="cottage-details-meta">
+            <p>Small footprint <span>·</span> Full feeling</p>
+            <p className="cottage-details-lede">Considered interiors, durable materials and an easy connection to the landscape.</p>
+          </div>
           <h2>A home that leaves<br /><em>room for life.</em></h2>
         </div>
 
-        <article className="cottage-detail-row" id="exterior">
+        <article className="cottage-detail-row cottage-layout-row" id="exterior">
           <figure className="cottage-detail-image">
             <Image src="/media/cottages/cottage-exterior.jpg" alt="Sage green cottage with a metal roof, garden and outdoor seating" width={2752} height={1536} quality={92} sizes="(max-width: 760px) 100vw, 52vw" />
           </figure>
@@ -83,7 +86,7 @@ export default function CottagesPage() {
           </div>
         </article>
 
-        <article className="cottage-detail-row is-reversed" id="plan">
+        <article className="cottage-detail-row is-reversed cottage-layout-row" id="plan">
           <figure className="cottage-detail-image cottage-plan-image">
             <Image src="/media/cottages/cottage-floor-plan.jpg" alt="One-bedroom cottage floor plan with an open kitchen and living room" width={2752} height={1536} quality={92} sizes="(max-width: 760px) 100vw, 52vw" />
           </figure>

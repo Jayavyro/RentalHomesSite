@@ -4,15 +4,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowDown, ArrowRight, ArrowUpRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight, Droplets, House, MapPin, Menu, Play, X } from "lucide-react";
 
 type Phase = "loading" | "film" | "reveal" | "masterplan";
 type MasterplanView = "phase-one" | "complete" | "original";
+type LifestyleStage = "idle" | "entering" | "film" | "still";
 
 const masterplanViews: { id: MasterplanView; label: string; image: string }[] = [
   { id: "phase-one", label: "Phase 1", image: "/media/masterplan-phase-1.jpg" },
   { id: "complete", label: "Full plan", image: "/media/masterplan-new.jpg" },
   { id: "original", label: "Original", image: "/media/masterplan-aerial.jpg" },
+];
+
+const lifestyleSlides = [
+  { desktop: "/media/lifestyle/gathering-final-desktop.webp", mobile: "/media/lifestyle/gathering-final-mobile.webp", alt: "The shared gathering area at Marietta Muse", eyebrow: "Life at Marietta Muse", lead: "Gather,", accent: "naturally.", detail: "Spaces made for slower afternoons, familiar faces and an everyday sense of belonging." },
+  { desktop: "/media/lifestyle/gathering-carousel-01-desktop.webp", mobile: "/media/lifestyle/gathering-carousel-01-mobile.webp", alt: "A gathering space at Marietta Muse", eyebrow: "Made for togetherness", lead: "A place to", accent: "linger.", detail: "An easy common ground for a morning coffee, a shared meal or a conversation that runs long." },
+  { desktop: "/media/lifestyle/gathering-carousel-02-desktop.webp", mobile: "/media/lifestyle/gathering-carousel-02-mobile.webp", alt: "Life around the gathering area at Marietta Muse", eyebrow: "The everyday ritual", lead: "More life", accent: "outside.", detail: "Open air, warm light and thoughtful places that make everyday life feel a little more connected." },
 ];
 
 const moments = [
@@ -29,6 +36,7 @@ const features = [
 export default function Home() {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const lifestyleVideoRef = useRef<HTMLVideoElement>(null);
   const progressBarRef = useRef<HTMLElement>(null);
   const activeMomentRef = useRef(-1);
   const [phase, setPhase] = useState<Phase>("loading");
@@ -39,6 +47,8 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [masterplanView, setMasterplanView] = useState<MasterplanView>("complete");
   const [cottageTransition, setCottageTransition] = useState(false);
+  const [lifestyleStage, setLifestyleStage] = useState<LifestyleStage>("idle");
+  const [lifestyleSlide, setLifestyleSlide] = useState(0);
 
   const revealMasterplan = useCallback(() => {
     activeMomentRef.current = -1;
@@ -123,8 +133,53 @@ export default function Home() {
   const openCottages = () => {
     if (cottageTransition) return;
     setCottageTransition(true);
-    window.setTimeout(() => router.push("/cottages"), 760);
+    window.setTimeout(() => {
+      router.push("/cottages");
+      // Keep the departure image intact until navigation begins, then clear
+      // transient state for a clean browser-back restore.
+      window.setTimeout(() => setCottageTransition(false), 0);
+    }, 760);
   };
+
+  const openLifestyle = () => {
+    if (lifestyleStage !== "idle") return;
+    setLifestyleSlide(0);
+    setLifestyleStage("entering");
+    window.setTimeout(() => {
+      setLifestyleStage("film");
+      const video = lifestyleVideoRef.current;
+      if (video) {
+        video.currentTime = 0;
+        void video.play().catch(() => setLifestyleStage("still"));
+      }
+    }, 620);
+  };
+
+  const closeLifestyle = () => {
+    lifestyleVideoRef.current?.pause();
+    setLifestyleSlide(0);
+    setLifestyleStage("idle");
+  };
+
+  const skipLifestyleFilm = () => {
+    lifestyleVideoRef.current?.pause();
+    setLifestyleStage("still");
+  };
+
+  const changeLifestyleSlide = (direction: -1 | 1) => {
+    setLifestyleSlide((current) => (current + direction + lifestyleSlides.length) % lifestyleSlides.length);
+  };
+
+  useEffect(() => {
+    if (lifestyleStage !== "still") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      changeLifestyleSlide(event.key === "ArrowLeft" ? -1 : 1);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [lifestyleStage]);
 
   const replay = () => {
     const video = videoRef.current;
@@ -148,7 +203,7 @@ export default function Home() {
   };
 
   return (
-    <main className={`experience phase-${phase}${cottageTransition ? " is-cottage-transition" : ""}`}>
+    <main className={`experience phase-${phase}${cottageTransition ? " is-cottage-transition" : ""}${lifestyleStage !== "idle" ? " is-lifestyle-open" : ""}`}>
       <video ref={videoRef} className="entry-film" muted={muted} playsInline preload="auto" poster="/media/landscape-poster.jpg" onEnded={revealMasterplan} onError={revealMasterplan} aria-label="A cinematic introduction to Marietta Muse">
         <source media="(max-width: 767px)" src="/media/entry-video-mobile-hq.mp4" type="video/mp4" />
         <source src="/media/entry-video-desktop-hq.mp4" type="video/mp4" />
@@ -196,10 +251,32 @@ export default function Home() {
           {features.map(({ className, icon: Icon, title, detail }) => className === "feature-private" ? (
             <Link className={`feature ${className}`} href="/cottages" key={title} aria-label="Explore the cottage collection" onClick={(event) => { event.preventDefault(); openCottages(); }}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></Link>
           ) : (
-            <button className={`feature ${className}`} type="button" key={title} aria-label={title}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>
+            <button className={`feature ${className}`} type="button" key={title} aria-label={`Explore ${title}`} onClick={openLifestyle}><span><Icon size={15} strokeWidth={1.4} /></span><b>{title}</b><small>{detail}</small></button>
           ))}
         </div>
         <div className="masterplan-foot"><button type="button" onClick={replay}><Play size={12} fill="currentColor" /> Replay film</button><div><strong>65%</strong><span>Dedicated<br />open nature</span></div><p>Design&nbsp; / &nbsp;Layout</p></div>
+      </section>
+
+      <section className={`lifestyle-journey lifestyle-${lifestyleStage}`} aria-hidden={lifestyleStage === "idle"} aria-label="Life at Marietta Muse">
+        <div className="lifestyle-journey-media">
+          <video ref={lifestyleVideoRef} muted playsInline preload="auto" poster="/media/lifestyle/gathering-final-desktop.webp" onEnded={() => setLifestyleStage("still")}>
+            <source media="(max-width: 767px)" src="/media/lifestyle/gathering-source.mp4" type="video/mp4" />
+            <source src="/media/lifestyle/gathering-source.mp4" type="video/mp4" />
+          </video>
+          {lifestyleSlides.map((slide, index) => <picture className={`lifestyle-slide${lifestyleSlide === index ? " is-active" : ""}`} key={slide.desktop}>
+            <source media="(max-width: 767px)" srcSet={slide.mobile} />
+            <img src={slide.desktop} alt={slide.alt} />
+          </picture>)}
+          <div className="lifestyle-journey-shade" />
+        </div>
+        <div className="lifestyle-journey-copy"><span>{lifestyleSlides[lifestyleSlide].eyebrow}</span><h2>{lifestyleSlides[lifestyleSlide].lead}<br /><em>{lifestyleSlides[lifestyleSlide].accent}</em></h2><p>{lifestyleSlides[lifestyleSlide].detail}</p></div>
+        <div className="lifestyle-carousel-controls" aria-label="Gathering area image gallery">
+          <button type="button" onClick={() => changeLifestyleSlide(-1)} aria-label="Previous gathering area image"><ChevronLeft size={16} /><span>Previous</span></button>
+          <span>{String(lifestyleSlide + 1).padStart(2, "0")} / {String(lifestyleSlides.length).padStart(2, "0")}</span>
+          <button type="button" onClick={() => changeLifestyleSlide(1)} aria-label="Next gathering area image"><span>Next</span><ChevronRight size={16} /></button>
+        </div>
+        <button className="lifestyle-skip" type="button" onClick={skipLifestyleFilm}>Skip film <ArrowRight size={14} /></button>
+        <button className="lifestyle-close" type="button" onClick={closeLifestyle}><X size={16} /> Back to masterplan</button>
       </section>
 
       <div className="below-fold" aria-hidden={phase !== "masterplan"}>
