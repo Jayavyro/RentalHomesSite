@@ -252,7 +252,7 @@ export default function Home() {
         <header className="site-header">
           <a className="brand desktop-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
           <a className="brand mobile-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
-          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a></nav>
+          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><a href="#contact">Contact</a></nav>
           <div className="plan-switcher" role="group" aria-label="Choose a master plan view">
             <span>A simpler tomorrow</span>
             <div>{masterplanViews.map((view) => <button className={masterplanView === view.id ? "is-active" : ""} type="button" key={view.id} onClick={() => setMasterplanView(view.id)} aria-pressed={masterplanView === view.id}>{view.label}</button>)}</div>
@@ -261,7 +261,7 @@ export default function Home() {
         </header>
         <div className={`mobile-menu ${mobileMenuOpen ? "is-open" : ""}`} aria-hidden={!mobileMenuOpen}>
           <div className="mobile-menu-head"><span>Marietta Muse</span><button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={18} /></button></div>
-          <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><a href="#location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</a><a href="#contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</a></nav>
+          <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><Link href="/location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</Link><a href="#contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</a></nav>
           <p>Marietta, Oklahoma<br />A simpler tomorrow</p>
         </div>
         <div className="masterplan-copy"><div className="eyebrow">The masterplan <span>· {masterplanViews.find((view) => view.id === masterplanView)?.label}</span></div><h2>Designed for <em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
@@ -348,7 +348,7 @@ export default function Home() {
 
         <footer className="closing-section">
           <div className="closing-top"><div><div className="section-kicker light"><span>Marietta Muse</span> Oklahoma</div><h2>Come home<br />to <em>a little more.</em></h2></div><a className="contact-pill" href="mailto:hello@mariettamuse.com">Start a conversation <ArrowUpRight size={16} /></a></div>
-          <nav className="footer-sitemap" aria-label="Sitemap"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><a href="#location">Location</a><a href="#contact">Contact</a><a href="/login">Login</a></nav>
+          <nav className="footer-sitemap" aria-label="Sitemap"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><a href="#contact">Contact</a><a href="/login">Login</a></nav>
           <div className="closing-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
         </footer>
       </div>

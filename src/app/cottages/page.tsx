@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowDown, ArrowLeft, ArrowUpRight, House, Menu, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowDown, ArrowLeft, ArrowUpRight, ChevronDown, House, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -20,9 +21,17 @@ const cottageTypes = [
   },
 ];
 
+const cottageFaqs = [
+  { question: "What cottage plans are available?", answer: "The collection is centred on a considered one-bedroom plan, with an open living and kitchen space, a private bedroom wing and a flexible garden edge." },
+  { question: "What is included with each cottage?", answer: "Each home is designed with a full kitchen, bathroom, storage, durable exterior materials and a thoughtfully landscaped setting." },
+  { question: "Can I arrange a visit?", answer: "Yes. Reach out to our team and we will help you arrange a visit, explore availability and answer any questions about life at Marietta Muse." },
+  { question: "How do I enquire about availability?", answer: "Use the enquiry link below or email hello@mariettamuse.com. We will share the latest availability and next steps." },
+];
+
 export default function CottagesPage() {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const returnToMasterplan = () => {
     window.sessionStorage.setItem("marietta-return-to-masterplan", "true");
     router.back();
@@ -46,7 +55,7 @@ export default function CottagesPage() {
 
         <header className="cottage-header">
           <button className="cottage-brand" type="button" onClick={returnToMasterplan} aria-label="Return to the master plan"><span>M</span><b>Marietta Muse</b></button>
-          <p>The cottage collection</p>
+          <nav className="cottage-desktop-nav" aria-label="Main navigation" style={{ display: "flex", alignItems: "center", gap: "clamp(22px, 3vw, 46px)", padding: "14px 24px", border: "1px solid rgba(255,255,255,.28)", borderRadius: "999px", background: "rgba(255,255,255,.11)", backdropFilter: "blur(16px)", fontSize: "8px", letterSpacing: ".18em", textTransform: "uppercase" }}><Link href="/#masterplan">Design &amp; Layout</Link><a href="#plan">Rentals</a><Link href="/location">Location</Link><a href="mailto:hello@mariettamuse.com">Contact</a></nav>
           <a href="mailto:hello@mariettamuse.com">Enquire <ArrowUpRight size={13} /></a>
           <button className="cottage-hamburger" type="button" aria-label="Open cottage navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} strokeWidth={1.5} /></button>
         </header>
@@ -130,6 +139,24 @@ export default function CottagesPage() {
         <div className="cottage-cta">
           <p>Marietta Muse, Oklahoma</p>
           <a href="mailto:hello@mariettamuse.com">Enquire about a cottage <ArrowUpRight size={15} /></a>
+        </div>
+      </section>
+
+      <section className="cottage-faq" aria-labelledby="cottage-faq-title">
+        <div className="cottage-faq-intro">
+          <p>Questions, answered</p>
+          <h2 id="cottage-faq-title">A little more<br /><em>to know.</em></h2>
+        </div>
+        <div className="cottage-faq-list">
+          {cottageFaqs.map(({ question, answer }, index) => {
+            const isOpen = openFaq === index;
+            return <article className={`cottage-faq-item${isOpen ? " is-open" : ""}`} key={question}>
+              <button type="button" onClick={() => setOpenFaq(isOpen ? null : index)} aria-expanded={isOpen} aria-controls={`cottage-faq-answer-${index}`}>
+                <span>{String(index + 1).padStart(2, "0")}</span><b>{question}</b><ChevronDown size={17} aria-hidden="true" />
+              </button>
+              <div id={`cottage-faq-answer-${index}`} className="cottage-faq-answer"><p>{answer}</p></div>
+            </article>;
+          })}
         </div>
       </section>
 
