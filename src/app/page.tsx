@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -252,7 +252,7 @@ export default function Home() {
         <header className="site-header">
           <a className="brand desktop-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
           <a className="brand mobile-brand" href="#masterplan"><span>M</span><b>Marietta Muse</b></a>
-          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><a href="#contact">Contact</a></nav>
+          <nav aria-label="Main navigation"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><Link href="/contact">Contact</Link></nav>
           <div className="plan-switcher" role="group" aria-label="Choose a master plan view">
             <span>A simpler tomorrow</span>
             <div>{masterplanViews.map((view) => <button className={masterplanView === view.id ? "is-active" : ""} type="button" key={view.id} onClick={() => setMasterplanView(view.id)} aria-pressed={masterplanView === view.id}>{view.label}</button>)}</div>
@@ -261,7 +261,7 @@ export default function Home() {
         </header>
         <div className={`mobile-menu ${mobileMenuOpen ? "is-open" : ""}`} aria-hidden={!mobileMenuOpen}>
           <div className="mobile-menu-head"><span>Marietta Muse</span><button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={18} /></button></div>
-          <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><Link href="/location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</Link><a href="#contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</a></nav>
+          <nav aria-label="Mobile navigation"><a href="#masterplan" onClick={() => setMobileMenuOpen(false)}><span>01</span>Design &amp; Layout</a><a href="#rentals" onClick={() => setMobileMenuOpen(false)}><span>02</span>Rentals</a><Link href="/location" onClick={() => setMobileMenuOpen(false)}><span>03</span>Location</Link><Link href="/contact" onClick={() => setMobileMenuOpen(false)}><span>04</span>Contact</Link></nav>
           <p>Marietta, Oklahoma<br />A simpler tomorrow</p>
         </div>
         <div className="masterplan-copy"><div className="eyebrow">The masterplan <span>· {masterplanViews.find((view) => view.id === masterplanView)?.label}</span></div><h2>Designed for <em>belonging.</em></h2><p>A collection of modern cottages, connected by nature and crafted for a richer everyday.</p><a className="outline-link" href="#vision">Explore design &amp; layout <ArrowDown size={14} /></a></div>
@@ -302,7 +302,7 @@ export default function Home() {
           <div className="site-plan-copy">
             <div className="section-kicker">Design &amp; layout</div>
             <h2 id="site-plan-title">A masterplan<br />built around <em>nature.</em></h2>
-            <p>Room to breathe is part of the plan. Open green space, quiet trails and a close-knit collection of homes keep the landscape at the heart of everyday life.</p>
+            <p>Open green spaces and quiet walking paths connect the cottages, giving you more room to enjoy every day.</p>
             <div className="site-plan-stat"><strong>Rooted</strong><span>in the natural<br />landscape</span></div>
           </div>
           <div className="site-plan-frame">
@@ -325,9 +325,24 @@ export default function Home() {
         </section>
 
         <section className="location-section" id="location">
-          <div className="location-mark"><MapPin size={22} strokeWidth={1.2} /></div>
-          <div><div className="section-kicker">Marietta, Oklahoma</div><h2>Close to nature.<br /><em>Connected to life.</em></h2></div>
-          <div className="location-note"><p>A quiet landscape, a close-knit community and an easier rhythm—rooted in southern Oklahoma.</p><a href="https://maps.google.com/?q=Marietta,Oklahoma" target="_blank" rel="noreferrer">View location <ArrowRight size={14} /></a></div>
+          <div className="location-head">
+            <div className="location-mark"><MapPin size={22} strokeWidth={1.2} /></div>
+            <div className="section-kicker">Marietta, Oklahoma</div>
+            <h2>Close to nature.<br /><em>Connected to life.</em></h2>
+            <p>A quiet landscape, a close-knit community and an easier rhythm—rooted in southern Oklahoma.</p>
+            <a className="location-link" href="https://maps.google.com/?q=Marietta,Oklahoma" target="_blank" rel="noreferrer">View location <ArrowRight size={14} /></a>
+          </div>
+          <article className="winstar-card">
+            <span className="winstar-tag">Nearby · Thackerville, OK</span>
+            <h3>WinStar World <em>Casino &amp; Resort</em></h3>
+            <p>One of the largest casino resorts in the world sits just across the Red River—dining, hotel stays and live entertainment, a short drive from home.</p>
+            <ul>
+              <li><strong>~20 min</strong><span>Drive from Marietta Muse</span></li>
+              <li><strong>I-35</strong><span>Straight route north</span></li>
+              <li><strong>Resort</strong><span>Dining, stays &amp; live shows</span></li>
+            </ul>
+            <a href="https://www.winstar.com/directions/" target="_blank" rel="noreferrer">WinStar directions <ArrowUpRight size={14} /></a>
+          </article>
         </section>
 
         <section className="contact-section" id="contact">
@@ -348,7 +363,7 @@ export default function Home() {
 
         <footer className="closing-section">
           <div className="closing-top"><div><div className="section-kicker light"><span>Marietta Muse</span> Oklahoma</div><h2>Come home<br />to <em>a little more.</em></h2></div><a className="contact-pill" href="mailto:hello@mariettamuse.com">Start a conversation <ArrowUpRight size={16} /></a></div>
-          <nav className="footer-sitemap" aria-label="Sitemap"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><a href="#contact">Contact</a><a href="/login">Login</a></nav>
+          <nav className="footer-sitemap" aria-label="Sitemap"><a href="#masterplan">Design &amp; Layout</a><a href="#rentals">Rentals</a><Link href="/location">Location</Link><Link href="/contact">Contact</Link><a href="/login">Login</a></nav>
           <div className="closing-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
         </footer>
       </div>

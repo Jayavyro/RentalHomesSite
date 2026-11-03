@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowLeft, ArrowUpRight, ChevronDown, House, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const cottageTypes = [
   {
@@ -15,9 +15,9 @@ const cottageTypes = [
   },
   {
     className: "cottage-pin-small",
-    title: "Full feeling",
+    title: "1 BHK · Full feeling",
     detail: "Natural light, honest materials and a garden edge make compact living feel generous.",
-    href: "#exterior",
+    href: "/cottages/one-bedroom",
   },
 ];
 
@@ -32,13 +32,24 @@ export default function CottagesPage() {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openingPlan, setOpeningPlan] = useState(false);
+  useEffect(() => {
+    const resetPlanTransition = () => setOpeningPlan(false);
+    resetPlanTransition();
+    window.addEventListener("pageshow", resetPlanTransition);
+    window.addEventListener("popstate", resetPlanTransition);
+    return () => {
+      window.removeEventListener("pageshow", resetPlanTransition);
+      window.removeEventListener("popstate", resetPlanTransition);
+    };
+  }, []);
   const returnToMasterplan = () => {
     window.sessionStorage.setItem("marietta-return-to-masterplan", "true");
     router.back();
   };
   return (
     <main className="cottage-page">
-      <section className="cottage-hero">
+      <section className={`cottage-hero ${openingPlan ? "is-plan-opening" : ""}`}>
         <div className="cottage-scene-frame">
           <Image
             className="cottage-scene"
@@ -79,7 +90,13 @@ export default function CottagesPage() {
 
         <nav className="cottage-pin-layer" aria-label="Explore cottage details">
           {cottageTypes.map(({ className, title, detail, href }) => (
-            <a className={`cottage-type-pin ${className}`} href={href} key={title}>
+            <a className={`cottage-type-pin ${className}`} href={href} key={title} onClick={(event) => {
+              if (!href.startsWith("/")) return;
+              event.preventDefault();
+              if (openingPlan) return;
+              setOpeningPlan(true);
+              window.setTimeout(() => router.push(href), 680);
+            }}>
               <span><House size={14} strokeWidth={1.4} /></span>
               <b>{title}</b>
               <small>{detail}</small>
