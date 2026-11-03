@@ -131,9 +131,24 @@ export default function Home() {
   }, [router]);
 
   useEffect(() => {
-    const clearCottageTransition = () => setCottageTransition(false);
-    window.addEventListener("popstate", clearCottageTransition);
-    return () => window.removeEventListener("popstate", clearCottageTransition);
+    let timer = 0;
+    const restoreMasterplan = () => {
+      const returningFromCottages = window.sessionStorage.getItem("marietta-return-to-masterplan") === "true";
+      if (returningFromCottages) window.sessionStorage.removeItem("marietta-return-to-masterplan");
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        setCottageTransition(false);
+        if (returningFromCottages) setPhase("masterplan");
+      }, 0);
+    };
+    restoreMasterplan();
+    window.addEventListener("popstate", restoreMasterplan);
+    window.addEventListener("pageshow", restoreMasterplan);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("popstate", restoreMasterplan);
+      window.removeEventListener("pageshow", restoreMasterplan);
+    };
   }, []);
 
   const openCottages = () => {

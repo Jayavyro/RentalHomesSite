@@ -23,6 +23,10 @@ const cottageTypes = [
 export default function CottagesPage() {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const returnToMasterplan = () => {
+    window.sessionStorage.setItem("marietta-return-to-masterplan", "true");
+    router.back();
+  };
   return (
     <main className="cottage-page">
       <section className="cottage-hero">
@@ -41,7 +45,7 @@ export default function CottagesPage() {
         <div className="cottage-scene-shade" aria-hidden="true" />
 
         <header className="cottage-header">
-          <button className="cottage-brand" type="button" onClick={() => router.back()} aria-label="Return to the master plan"><span>M</span><b>Marietta Muse</b></button>
+          <button className="cottage-brand" type="button" onClick={returnToMasterplan} aria-label="Return to the master plan"><span>M</span><b>Marietta Muse</b></button>
           <p>The cottage collection</p>
           <a href="mailto:hello@mariettamuse.com">Enquire <ArrowUpRight size={13} /></a>
           <button className="cottage-hamburger" type="button" aria-label="Open cottage navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} strokeWidth={1.5} /></button>
@@ -75,7 +79,7 @@ export default function CottagesPage() {
         </nav>
 
         <footer className="cottage-footer">
-          <button type="button" onClick={() => router.back()}><ArrowLeft size={13} /> Back to master plan</button>
+          <button type="button" onClick={returnToMasterplan}><ArrowLeft size={13} /> Back to master plan</button>
           <a href="#exterior">Discover the cottage <ArrowDown size={13} /></a>
         </footer>
       </section>
@@ -141,7 +145,7 @@ export default function CottagesPage() {
           <a href="#exterior">Outside in</a>
           <a href="#plan">The plan</a>
           <a href="#craft">Materials</a>
-          <button type="button" onClick={() => router.back()}>Back to masterplan</button>
+          <button type="button" onClick={returnToMasterplan}>Back to masterplan</button>
         </nav>
         <div className="cottage-footer-bottom"><span>Marietta Muse</span><span>A simpler tomorrow</span><span>© 2026</span></div>
       </footer>
