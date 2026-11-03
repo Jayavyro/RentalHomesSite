@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowDown, ArrowLeft, ArrowUpRight, House } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUpRight, House, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const cottageTypes = [
   {
@@ -21,6 +22,7 @@ const cottageTypes = [
 
 export default function CottagesPage() {
   const router = useRouter();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <main className="cottage-page">
       <section className="cottage-hero">
@@ -42,7 +44,19 @@ export default function CottagesPage() {
           <button className="cottage-brand" type="button" onClick={() => router.back()} aria-label="Return to the master plan"><span>M</span><b>Marietta Muse</b></button>
           <p>The cottage collection</p>
           <a href="mailto:hello@mariettamuse.com">Enquire <ArrowUpRight size={13} /></a>
+          <button className="cottage-hamburger" type="button" aria-label="Open cottage navigation" aria-expanded={mobileMenuOpen} onClick={() => setMobileMenuOpen(true)}><Menu size={17} strokeWidth={1.5} /></button>
         </header>
+
+        <div className={`mobile-menu cottage-mobile-menu ${mobileMenuOpen ? "is-open" : ""}`} aria-hidden={!mobileMenuOpen}>
+          <div className="mobile-menu-head"><span>Marietta Muse</span><button type="button" aria-label="Close navigation" onClick={() => setMobileMenuOpen(false)}><X size={18} /></button></div>
+          <nav aria-label="Cottage navigation">
+            <a href="#exterior" onClick={() => setMobileMenuOpen(false)}><span>01</span>Outside in</a>
+            <a href="#plan" onClick={() => setMobileMenuOpen(false)}><span>02</span>The plan</a>
+            <a href="#craft" onClick={() => setMobileMenuOpen(false)}><span>03</span>Materials</a>
+            <a href="mailto:hello@mariettamuse.com"><span>04</span>Enquire</a>
+          </nav>
+          <p>Marietta, Oklahoma<br />The cottage collection</p>
+        </div>
 
         <div className="cottage-intro" aria-labelledby="cottage-title">
           <div className="cottage-kicker">Your place, your pace</div>
