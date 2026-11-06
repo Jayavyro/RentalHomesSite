@@ -1,0 +1,8 @@
+.dock{align-items:center;bottom:clamp(22px,3vw,42px)}
+.dock .control{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:46px;padding:12px 19px;border:1px solid rgba(255,255,255,.72);border-radius:999px;color:#fff;background:rgba(20,37,27,.83);box-shadow:0 10px 32px rgba(0,0,0,.18);backdrop-filter:blur(6px);font:500 9px var(--sans);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:background .2s ease,transform .2s ease}
+.dock .control:hover:not(:disabled){background:#2f503a;transform:translateY(-2px)}
+.dock .control:disabled{cursor:default;opacity:.8}
+.dock .primary{border-color:#f6eee1;color:#243a2b;background:#f6eee1}
+.dock .primary:hover:not(:disabled){background:#fff}
+.status{color:#fff;font:500 9px var(--sans);letter-spacing:.18em;text-shadow:0 2px 12px rgba(0,0,0,.6);text-transform:uppercase}
+@media(max-width:760px){.dock{right:20px;bottom:20px;left:20px}.dock .control{min-height:44px;padding:11px 13px;font-size:7px;gap:7px}.status{position:absolute;bottom:calc(100% + 14px);left:2px;font-size:7px}}

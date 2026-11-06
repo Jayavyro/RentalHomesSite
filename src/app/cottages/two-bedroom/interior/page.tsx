@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SiteNav from "../../../components/SiteNav";
 import MobileSiteNav from "../../../components/MobileSiteNav";
+import styles from "./interior.module.css";
 
 export default function TwoBedroomInteriorPage() {
   const router = useRouter();
@@ -52,15 +53,15 @@ export default function TwoBedroomInteriorPage() {
           <source src="/media/cottages/two-bedroom-interior-desktop-reverse.mp4" type="video/mp4" />
         </video>}
         <div className="interior-shade" aria-hidden="true" />
-        <div className="interior-content">
-          <p>{showPhoto ? "The heart of home" : "Step inside · Two-bedroom cottage"}</p>
-          <h1>{showPhoto ? <>Room to <em>settle in.</em></> : <>A closer look <em>inside.</em></>}</h1>
-          {showPhoto && <span>Light moves through the kitchen and into a living space made for slow mornings and easy evenings.</span>}
-        </div>
-        <div className="interior-bottom">
-          <button className="interior-control" type="button" onClick={goBack} disabled={mode === "reverse"}><ArrowLeft size={14} /> {mode === "reverse" ? "Returning to plan" : "Back to the plan"}</button>
-          <span className="interior-progress" aria-live="polite">{mode === "reverse" ? "Playing the journey back" : showPhoto ? "Interior tour · Complete" : "Interior tour · Playing"}</span>
-          {showPhoto ? <button type="button" onClick={replay}><RotateCcw size={13} /> Replay film</button> : mode === "forward" ? <button type="button" onClick={() => setMode("photo")}>Skip film <ArrowUpRight size={13} /></button> : null}
+        {showPhoto && <div className="interior-content">
+          <p>The heart of home</p>
+          <h1>Room to <em>settle in.</em></h1>
+          <span>Light moves through the kitchen and into a living space made for slow mornings and easy evenings.</span>
+        </div>}
+        <div className={`interior-bottom ${styles.dock}`}>
+          <button className={styles.control} type="button" onClick={goBack} disabled={mode === "reverse"}><ArrowLeft size={14} /> {mode === "reverse" ? "Returning to plan" : "Back to the plan"}</button>
+          <span className={styles.status} aria-live="polite">{mode === "reverse" ? "Playing the journey back" : showPhoto ? "Interior tour · Complete" : "Interior tour · Playing"}</span>
+          {showPhoto ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={replay}><RotateCcw size={13} /> Replay film</button> : mode === "forward" ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={() => setMode("photo")}>Skip film <ArrowUpRight size={13} /></button> : null}
         </div>
       </section>
     </main>
