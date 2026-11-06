@@ -9,9 +9,9 @@ import SiteNav from "../components/SiteNav";
 const cottageTypes = [
   {
     className: "cottage-pin-big",
-    title: "Small footprint",
-    detail: "A considered one-bedroom plan that keeps every essential beautifully close.",
-    href: "#plan",
+    title: "2 BHK · Room to grow",
+    detail: "Two private bedrooms, an open living space and a deck for time outdoors.",
+    href: "/cottages/two-bedroom",
   },
   {
     className: "cottage-pin-small",
@@ -22,7 +22,7 @@ const cottageTypes = [
 ];
 
 const cottageFaqs = [
-  { question: "What cottage plans are available?", answer: "The collection is centred on a considered one-bedroom plan, with an open living and kitchen space, a private bedroom wing and a flexible garden edge." },
+  { question: "What cottage plans are available?", answer: "Explore one and two-bedroom cottage plans. Both bring living spaces close to the garden, with a private place to rest." },
   { question: "What is included with each cottage?", answer: "Each home is designed with a full kitchen, bathroom, storage, durable exterior materials and a thoughtfully landscaped setting." },
   { question: "Can I arrange a visit?", answer: "Yes. Reach out to our team and we will help you arrange a visit, explore availability and answer any questions about life at Marietta Muse." },
   { question: "How do I enquire about availability?", answer: "Use the enquiry link below or email hello@mariettamuse.com. We will share the latest availability and next steps." },
@@ -33,8 +33,12 @@ export default function CottagesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [openingPlan, setOpeningPlan] = useState(false);
+  const [openingTwoBedroom, setOpeningTwoBedroom] = useState(false);
   useEffect(() => {
-    const resetPlanTransition = () => setOpeningPlan(false);
+    const resetPlanTransition = () => {
+      setOpeningPlan(false);
+      setOpeningTwoBedroom(false);
+    };
     resetPlanTransition();
     window.addEventListener("pageshow", resetPlanTransition);
     window.addEventListener("popstate", resetPlanTransition);
@@ -50,7 +54,7 @@ export default function CottagesPage() {
   };
   return (
     <main className="cottage-page">
-      <section className={`cottage-hero ${openingPlan ? "is-plan-opening" : ""}`}>
+      <section className={`cottage-hero ${openingPlan ? "is-plan-opening" : ""} ${openingTwoBedroom ? "is-two-bedroom-opening" : ""}`}>
         <div className="cottage-scene-frame">
           <Image
             className="cottage-scene"
@@ -95,6 +99,7 @@ export default function CottagesPage() {
               if (!href.startsWith("/")) return;
               event.preventDefault();
               if (openingPlan) return;
+              setOpeningTwoBedroom(href === "/cottages/two-bedroom");
               setOpeningPlan(true);
               window.setTimeout(() => router.push(href), 680);
             }}>

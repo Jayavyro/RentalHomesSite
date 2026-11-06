@@ -925,3 +925,100 @@ button,a { font:inherit; } button { border:0; } a { color:inherit; text-decorati
 @media(max-width:760px){.standard-mobile-nav{justify-self:end;display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid rgba(255,255,255,.48);border-radius:50%;color:#fff;background:rgba(18,29,20,.32);cursor:pointer}.standard-mobile-menu{z-index:60}}
 @media(max-width:760px){.location-header .standard-mobile-menu nav{display:flex;flex-direction:column;align-items:stretch;gap:0;margin-top:11vh;padding:0;border:0;border-radius:0;background:transparent;backdrop-filter:none}.location-header .standard-mobile-menu nav a{font:400 clamp(30px,9vw,42px)/1 var(--serif);letter-spacing:-.02em;opacity:1}}
 
+/* Align desktop cottage pins with the rear and front-right homes. */
+@media(min-width:761px){
+  .cottage-hero .cottage-pin-big{left:49.4%;top:28.7%}
+  .cottage-hero .cottage-pin-small{left:78.4%;top:50%}
+}
+
+/* Two-bedroom detail and image tour. */
+.cottage-hero.is-two-bedroom-opening .cottage-scene-frame{transform-origin:49.4% 28.7%}
+.two-bedroom-page .one-bedroom-word{font-size:clamp(78px,12vw,180px)}
+.two-bedroom-page .one-bedroom-copy{top:28%}
+.two-bedroom-page .one-bedroom-visual{top:25%}
+.two-bedroom-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:27px}
+.two-bedroom-actions button,.two-bedroom-actions a{display:inline-flex;align-items:center;justify-content:space-between;gap:16px;min-height:40px;padding:11px 15px;border:1px solid rgba(104,80,51,.38);border-radius:999px;color:#4c3c2b;background:transparent;font-size:8px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.two-bedroom-actions button{color:#f9f0e6;background:#354439;border-color:#354439}
+.two-bedroom-actions .two-bedroom-see-plan{color:#f9f0e6;background:#354439;border-color:#354439}
+.two-bedroom-actions button:hover{background:#4a5a4b}
+.two-bedroom-tour{position:fixed;z-index:100;inset:0;display:grid;place-items:center;padding:clamp(12px,3vw,38px);background:rgba(19,28,21,.86);backdrop-filter:blur(8px)}
+.two-bedroom-tour-panel{display:flex;flex-direction:column;width:min(1500px,100%);max-height:100%;padding:clamp(15px,2vw,28px);border:1px solid rgba(255,255,255,.22);background:#f9f0e6;overflow:auto}
+.two-bedroom-tour-head{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#665642;font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+.two-bedroom-tour-head i{display:inline-block;width:24px;height:1px;margin:0 10px 3px;background:#a58c6c}
+.two-bedroom-tour-head button{display:grid;place-items:center;width:34px;height:34px;border:1px solid #cbbdab;border-radius:50%;background:transparent;cursor:pointer}
+.two-bedroom-tour-image{overflow:auto;flex:1;display:grid;place-items:center;min-height:0}
+.two-bedroom-tour-image img{display:block;width:100%;height:auto;object-fit:contain}
+.two-bedroom-tour-caption{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(18px,4vw,70px);padding:12px 0 0;border-top:1px solid #d8ccbd;color:#6d5e4e;font:400 clamp(12px,1.2vw,17px) var(--serif)}
+.two-bedroom-tour-caption{align-items:center;justify-content:space-between}
+.two-bedroom-tour-caption button{display:inline-flex;align-items:center;gap:13px;padding:12px 17px;border-radius:999px;color:#f9f0e6;background:#354439;font:500 9px var(--sans);letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.two-bedroom-tour-caption a{display:inline-flex;align-items:center;gap:13px;padding:12px 17px;border-radius:999px;color:#f9f0e6;background:#354439;font:500 9px var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.two-bedroom-tour-image{display:block}
+.two-bedroom-plan-map{position:relative;width:100%;margin:auto}
+.two-bedroom-plan-map img{width:100%;height:auto}
+.plan-label{position:absolute;z-index:1;padding:6px 10px;border:1px solid rgba(255,255,255,.75);border-radius:999px;color:#fff;background:rgba(29,43,32,.85);box-shadow:0 3px 15px rgba(20,30,22,.18);font:500 clamp(8px,.8vw,12px) var(--sans);letter-spacing:.08em;white-space:nowrap;transform:translate(-50%,-50%)}
+.plan-label.bed-one{left:15%;top:57%}.plan-label.bathroom{left:28%;top:45%}.plan-label.bed-two{left:41%;top:45%}.plan-label.utility{left:31%;top:66%}.plan-label.kitchen{left:56%;top:43%}.plan-label.living{left:75%;top:54%}.plan-label.deck{left:90%;top:55%}
+.two-bedroom-interior-stage{position:relative;flex:1;min-height:0;overflow:hidden;background:#1d261f}
+.two-bedroom-interior-stage video,.two-bedroom-interior-stage picture,.two-bedroom-interior-stage picture img{display:block;width:100%;height:100%;object-fit:cover}
+.two-bedroom-interior-stage video{max-height:calc(100svh - 140px)}
+.two-bedroom-interior-stage picture{height:min(70svh,760px);animation:oneBedroomFade .55s ease both}
+.two-bedroom-interior-copy{position:absolute;right:0;bottom:0;left:0;padding:clamp(22px,4vw,55px);color:#fff;background:linear-gradient(transparent,rgba(8,20,12,.77))}
+.two-bedroom-interior-copy span{font-size:9px;letter-spacing:.2em;text-transform:uppercase}.two-bedroom-interior-copy h2{margin:12px 0;font:400 clamp(32px,4vw,60px) var(--serif)}.two-bedroom-interior-copy p{max-width:440px;font-size:13px;line-height:1.6}.two-bedroom-interior-copy button{display:inline-flex;align-items:center;gap:9px;margin-top:12px;padding:10px 14px;border:1px solid rgba(255,255,255,.7);border-radius:999px;color:#fff;background:transparent;font-size:9px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.two-bedroom-skip{position:absolute;right:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:10px 15px;border:1px solid rgba(255,255,255,.7);border-radius:999px;color:#fff;background:rgba(20,30,23,.72);font-size:9px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+@media(max-width:760px){
+  .two-bedroom-page .one-bedroom-word{font-size:20vw}
+  .two-bedroom-page .one-bedroom-copy{top:14%}
+  .two-bedroom-page .one-bedroom-visual{top:45%}
+  .two-bedroom-actions{margin-top:18px}
+  .two-bedroom-actions button,.two-bedroom-actions a{min-height:36px;padding:9px 12px;font-size:7px}
+  .two-bedroom-tour-panel{height:min(90svh,730px)}
+  .two-bedroom-tour-image{overflow-x:auto}
+  .two-bedroom-plan-map{width:1000px;margin:0}
+  .two-bedroom-plan-map img{width:100%;max-width:none}
+  .plan-label{font-size:10px}
+  .two-bedroom-tour-caption{justify-content:flex-start;gap:8px 16px;font-size:11px}
+  .two-bedroom-tour-caption button{width:100%;justify-content:space-between}
+  .two-bedroom-tour-caption a{width:100%;justify-content:space-between}
+  .two-bedroom-interior-stage{min-height:0}
+  .two-bedroom-interior-stage picture{height:min(73svh,780px)}
+  .two-bedroom-interior-stage picture img{object-fit:cover;object-position:center}
+  .two-bedroom-interior-stage video{height:72svh;max-height:none;object-fit:cover}
+  .two-bedroom-interior-copy{padding:28px 20px}.two-bedroom-interior-copy p{font-size:11px}
+}
+
+/* Dedicated two-bedroom interior film and final photograph. */
+.interior-page{min-height:100svh;color:#fff;background:#17251b}
+.interior-header{position:absolute;z-index:20;top:0;right:0;left:0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:24px clamp(22px,4vw,68px)}
+.interior-brand{display:flex;align-items:center;gap:12px;width:max-content;text-transform:uppercase}.interior-brand span{display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(255,255,255,.65);border-radius:50%;font:italic 18px var(--serif)}.interior-brand b{font-size:9px;font-weight:500;letter-spacing:.27em}
+.interior-header .site-nav{display:flex;align-items:center;gap:clamp(22px,3vw,56px);padding:16px 30px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(22,33,26,.27);backdrop-filter:blur(12px);font-size:clamp(10px,.75vw,14px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}.interior-header .site-nav a{opacity:.75}.interior-header .site-nav a:hover,.interior-header .site-nav .is-active{opacity:1}
+.interior-enquire{justify-self:end;display:flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid rgba(255,255,255,.48);border-radius:999px;font-size:8px;letter-spacing:.17em;text-transform:uppercase}.interior-header .standard-mobile-nav{display:none}
+.interior-scene{position:relative;min-height:100svh;overflow:hidden}.interior-film,.interior-photo,.interior-photo img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}.interior-film{background:#17251b}.interior-photo{animation:oneBedroomFade .6s ease both}.interior-shade{position:absolute;z-index:1;inset:0;background:linear-gradient(180deg,rgba(8,17,11,.47),transparent 24%,transparent 54%,rgba(8,17,11,.66));pointer-events:none}.interior-content{position:absolute;z-index:2;bottom:clamp(120px,16vh,185px);left:clamp(22px,5vw,85px);max-width:650px;pointer-events:none}.interior-content>p{font-size:9px;letter-spacing:.22em;text-transform:uppercase}.interior-content h1{margin:17px 0 12px;font:400 clamp(52px,6vw,100px)/.92 var(--serif);letter-spacing:-.045em}.interior-content h1 em{font-weight:400}.interior-content>span{display:block;max-width:425px;font-size:14px;line-height:1.65}.interior-bottom{position:absolute;z-index:3;right:clamp(22px,4vw,68px);bottom:75px;left:clamp(22px,4vw,68px);display:flex;justify-content:space-between;gap:20px}.interior-bottom a,.interior-bottom button{display:inline-flex;align-items:center;gap:11px;padding:10px 0;color:#fff;background:transparent;font-size:9px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}.interior-bottom button{border-bottom:1px solid rgba(255,255,255,.65)}.interior-page.is-photo .interior-bottom{bottom:30px}
+@media(max-width:760px){.interior-header{grid-template-columns:1fr auto;padding:18px 20px}.interior-brand b{font-size:7px;letter-spacing:.2em}.interior-header .site-nav,.interior-enquire{display:none}.interior-header .standard-mobile-nav{display:grid}.interior-scene{height:100svh}.interior-film{object-fit:contain}.interior-photo img{object-fit:cover;object-position:center}.interior-content{right:21px;bottom:115px;left:21px}.interior-content h1{font-size:clamp(48px,13vw,70px)}.interior-content>span{max-width:300px;font-size:12px}.interior-bottom{right:21px;bottom:70px;left:21px}.interior-bottom a,.interior-bottom button{font-size:7px}.interior-page.is-photo .interior-bottom{bottom:25px}}
+
+/* Full-page plan between the cottage overview and interior tour. */
+.two-bedroom-plan-page{min-height:100svh;color:#352d24;background:#f9f0e6}
+.two-bedroom-plan-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:24px clamp(22px,4vw,68px)}
+.two-bedroom-plan-header .site-nav{display:flex;align-items:center;gap:clamp(22px,3vw,56px);padding:16px 30px;border:1px solid rgba(62,50,38,.22);border-radius:999px;background:rgba(255,255,255,.34);font-size:clamp(10px,.75vw,14px);font-weight:500;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}.two-bedroom-plan-header .site-nav a{opacity:.7}.two-bedroom-plan-header .site-nav .is-active{opacity:1}
+.two-bedroom-plan-back{justify-self:end;display:inline-flex;align-items:center;gap:9px;padding:11px 15px;border:1px solid #c9bba9;border-radius:999px;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.two-bedroom-plan-header .standard-mobile-nav{display:none}
+.two-bedroom-plan-content{display:flex;flex-direction:column;min-height:calc(100svh - 82px);padding:14px clamp(22px,4vw,68px) 30px}
+.two-bedroom-plan-intro{display:flex;align-items:end;justify-content:space-between;gap:24px}.two-bedroom-plan-intro>span{align-self:start;color:#a47d4a;font-size:9px;letter-spacing:.2em;text-transform:uppercase}.two-bedroom-plan-intro h1{margin:0;font:400 clamp(32px,3.4vw,54px)/1 var(--serif);letter-spacing:-.035em}.two-bedroom-plan-intro h1 em{color:#8d7458;font-weight:400}.two-bedroom-plan-intro p{max-width:290px;margin:0;color:#776d61;font-size:12px;line-height:1.6}
+.two-bedroom-plan-scroll{display:grid;flex:1;place-items:center;min-height:0;margin:12px 0;overflow:hidden}
+.two-bedroom-plan-page .two-bedroom-plan-map{width:min(100%,calc((100svh - 240px)*1.791));max-width:1500px}
+.two-bedroom-plan-page .two-bedroom-plan-map img{display:block;width:100%;height:auto}
+.two-bedroom-plan-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:16px;border-top:1px solid #d8ccbd}.two-bedroom-plan-footer>span{color:#786956;font:400 clamp(13px,1.3vw,18px) var(--serif)}.two-bedroom-plan-footer>span i{display:inline-block;width:4px;height:4px;margin:0 10px 3px;border-radius:50%;background:#a47d4a}.two-bedroom-plan-footer a{display:inline-flex;align-items:center;gap:14px;padding:13px 17px;border-radius:999px;color:#fff;background:#354439;font-size:9px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}.two-bedroom-plan-mobile-hint{display:none}
+@media(max-width:760px){.two-bedroom-plan-header{grid-template-columns:1fr auto;padding:18px 20px}.two-bedroom-plan-header .site-nav,.two-bedroom-plan-back{display:none}.two-bedroom-plan-header .standard-mobile-nav{display:grid;border-color:#a99a87;color:#352d24;background:transparent}.two-bedroom-plan-content{min-height:calc(100svh - 70px);padding:18px 0 22px}.two-bedroom-plan-intro{display:block;padding:0 21px}.two-bedroom-plan-intro h1{margin:15px 0 9px;font-size:clamp(37px,10vw,50px)}.two-bedroom-plan-intro p{font-size:11px}.two-bedroom-plan-scroll{display:block;flex:none;width:100%;margin:20px 0 0;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity}.two-bedroom-plan-page .two-bedroom-plan-map{width:950px;max-width:none}.two-bedroom-plan-mobile-hint{display:flex;align-items:center;gap:8px;margin:8px 21px 20px;color:#8d7458;font-size:9px;letter-spacing:.08em}.two-bedroom-plan-footer{align-items:stretch;flex-direction:column;margin:0 21px}.two-bedroom-plan-footer>span{font-size:13px}.two-bedroom-plan-footer a{justify-content:space-between}}
+
+.interior-film{z-index:1;transition:opacity .8s ease;pointer-events:none}
+.interior-film.is-finished{opacity:0}
+.interior-photo{z-index:0}
+.interior-page.is-film .interior-content{opacity:0}
+.interior-page.is-photo .interior-content{animation:oneBedroomFade .65s ease 1.15s both}
+.interior-reverse{z-index:2;opacity:1}
+.interior-bottom,.interior-page.is-photo .interior-bottom{align-items:center;bottom:clamp(20px,3vw,42px)}
+.interior-bottom button{display:inline-flex;align-items:center;justify-content:center;gap:11px;min-height:44px;padding:12px 18px;border:1px solid rgba(255,255,255,.68);border-radius:999px;color:#fff;background:rgba(22,37,27,.78);box-shadow:0 8px 30px rgba(0,0,0,.15);backdrop-filter:blur(6px);font-size:9px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;transition:background .2s ease,transform .2s ease}
+.interior-bottom button:hover:not(:disabled){background:#2c4935;transform:translateY(-2px)}
+.interior-bottom button:last-child{border-color:#f6eee1;color:#23382b;background:#f6eee1}
+.interior-bottom button:last-child:hover:not(:disabled){background:#fff}
+.interior-bottom button:disabled{cursor:default;opacity:.75}
+.interior-progress{color:#fff;font-size:9px;letter-spacing:.18em;text-shadow:0 2px 12px rgba(0,0,0,.55);text-transform:uppercase}
+@media(max-width:760px){.interior-bottom,.interior-page.is-photo .interior-bottom{right:20px;bottom:20px;left:20px}.interior-bottom button{min-height:42px;padding:10px 13px;font-size:7px}.interior-progress{position:absolute;bottom:calc(100% + 13px);left:2px;font-size:7px}}
+
