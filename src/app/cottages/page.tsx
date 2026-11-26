@@ -44,6 +44,7 @@ export default function CottagesPage() {
     window.addEventListener("pageshow", resetPlanTransition);
     window.addEventListener("popstate", resetPlanTransition);
     return () => {
+      resetPlanTransition();
       window.removeEventListener("pageshow", resetPlanTransition);
       window.removeEventListener("popstate", resetPlanTransition);
     };

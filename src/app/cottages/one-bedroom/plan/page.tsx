@@ -65,11 +65,11 @@ export default function OneBedroomPlanPage() {
         <section className={styles.scene} aria-label="One-bedroom cottage plan">
           <div className={styles.map}>
             <Image
-              src="/media/cottages/One breddroom.png"
+              src="/media/cottages/one-bedroom-plan-hq.webp"
               alt="Overhead cutaway view of the one-bedroom cottage plan"
               fill
               priority
-              quality={95}
+              unoptimized
               sizes="100vw"
             />
             {pinPositions.map((pin) => (

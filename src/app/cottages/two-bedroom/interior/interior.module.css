@@ -53,7 +53,7 @@
 }
 
 .filmFast {
-  transition: opacity .42s cubic-bezier(.22, 1, .36, 1) !important
+  transition: opacity .26s cubic-bezier(.22, 1, .36, 1) !important
 }
 
 .filmFull {
@@ -61,10 +61,14 @@
   object-position: center !important
 }
 
+.content {
+  animation: oneBedroomFade .34s cubic-bezier(.22, 1, .36, 1) .05s both !important
+}
+
 .slide {
   opacity: 0 !important;
   visibility: hidden;
-  transition: opacity .42s cubic-bezier(.22, 1, .36, 1), visibility .42s;
+  transition: opacity .28s cubic-bezier(.22, 1, .36, 1), visibility .28s;
   pointer-events: none;
   animation: none !important;
   overflow: hidden

@@ -40,9 +40,9 @@ const interiorSlides = [
     lead: "Space to",
     accent: "unwind.",
     detail: "High shiplap ceilings, a ceiling fan, and an inviting living room that opens straight onto the private deck.",
-    desktop: "/media/cottages/two-bedroom-living.jpg",
-    width: 1024,
-    height: 576,
+    desktop: "/media/cottages/two-bedroom-living-hq.webp",
+    width: 2400,
+    height: 1338,
     alt: "Sunlit living room in the two-bedroom cottage with vaulted ceiling, sofa, media console, and glass door to the outdoor deck",
   },
 ];
@@ -53,7 +53,7 @@ export default function TwoBedroomInteriorPage() {
   // this page is hidden (navigated away from) and later reopened, <InteriorTour>
   // mounts completely fresh with a new <video> element and clean state.
   const [visitKey, setVisitKey] = useState(0);
-  useLayoutEffect(() => {
+  useEffect(() => {
     return () => {
       setVisitKey((k) => k + 1);
     };

@@ -44,7 +44,7 @@ export default function OneBedroomPage() {
         </div>
 
         <picture className="one-bedroom-visual">
-          <Image src="/media/cottages/one-bedroom-cutout-new.png" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1678} height={937} priority quality={95} sizes="(max-width: 760px) 102vw, 55vw" />
+          <Image src="/media/cottages/one-bedroom-cutout-new.png" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1678} height={937} priority unoptimized sizes="(max-width: 760px) 102vw, 55vw" />
         </picture>
 
         <aside className="one-bedroom-facts" aria-label="One-bedroom cottage facts">
