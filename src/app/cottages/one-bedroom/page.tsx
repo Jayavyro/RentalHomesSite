@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Expand, Menu, X } from "lucide-react";
 import { useState } from "react";
 import SiteNav from "../../components/SiteNav";
+import styles from "../two-bedroom/two-bedroom.module.css";
 
 export default function OneBedroomPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <main className="one-bedroom-page one-bedroom-original">
+    <main className={`one-bedroom-page one-bedroom-original ${styles.twoBedroom}`}>
       <header className="one-bedroom-header">
         <Link className="one-bedroom-brand" href="/cottages"><span>M</span><b>Marietta Muse</b></Link>
         <SiteNav className="one-bedroom-nav" active="rentals" />
@@ -36,12 +37,14 @@ export default function OneBedroomPage() {
           <p>01 <i /> One-bedroom cottage</p>
           <h1 id="one-bedroom-title">Thoughtful proportions,<br /><em>inside and out.</em></h1>
           <span>An open living heart, a private bedroom and the practical spaces everyday life needs—considered as one calm, complete home.</span>
-          <a href="mailto:hello@mariettamuse.com">Ask about availability <ArrowUpRight size={14} /></a>
+          <div className="two-bedroom-actions">
+            <Link className="two-bedroom-see-plan" href="/cottages/one-bedroom/plan">See plan <Expand size={13} /></Link>
+            <a href="mailto:hello@mariettamuse.com?subject=One-bedroom%20cottage%20enquiry">Ask about availability <ArrowUpRight size={13} /></a>
+          </div>
         </div>
 
         <picture className="one-bedroom-visual">
-          <source media="(max-width: 760px)" srcSet="/media/cottages/one-bedroom-cutout-mobile.webp" />
-          <Image src="/media/cottages/one-bedroom-cutout-desktop.webp" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1774} height={887} priority quality={95} sizes="(max-width: 760px) 102vw, 55vw" />
+          <Image src="/media/cottages/one-bedroom-cutout-new.png" alt="Cutaway view of the Marietta Muse one-bedroom cottage showing its bedroom, bathroom, kitchen, living space and deck" width={1678} height={937} priority quality={95} sizes="(max-width: 760px) 102vw, 55vw" />
         </picture>
 
         <aside className="one-bedroom-facts" aria-label="One-bedroom cottage facts">

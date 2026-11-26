@@ -54,7 +54,7 @@ export default function CottagesPage() {
     router.push("/#masterplan");
   };
   return (
-    <main className="cottage-page">
+    <main className={`cottage-page ${styles.page}`}>
       <section className={`cottage-hero ${openingPlan ? "is-plan-opening" : ""} ${openingTwoBedroom ? "is-two-bedroom-opening" : ""}`}>
         <div className="cottage-scene-frame">
           <Image

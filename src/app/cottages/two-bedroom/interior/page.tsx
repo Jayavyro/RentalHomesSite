@@ -333,7 +333,7 @@ function InteriorTour() {
               </button>
             )}
 
-            <div className="interior-content" key={currentSlide.eyebrow}>
+            <div className={`interior-content ${styles.content}`} key={currentSlide.eyebrow}>
               <p>{currentSlide.eyebrow}</p>
               <h1>{currentSlide.lead} <em>{currentSlide.accent}</em></h1>
               <span>{currentSlide.detail}</span>

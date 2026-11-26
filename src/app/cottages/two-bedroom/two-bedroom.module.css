@@ -1,15 +1,118 @@
+/* Consistent edge spacing & refined left typography across all screen sizes */
+.twoBedroom {
+  --edge-x: clamp(28px, 5vw, 84px);
+}
+
+@media (min-width: 761px) {
+  .twoBedroom :global(.one-bedroom-header) {
+    padding: 26px var(--edge-x);
+  }
+
+  .twoBedroom :global(.one-bedroom-word) {
+    top: 10.5%;
+    font-size: clamp(82px, 11.8vw, 184px);
+  }
+
+  .twoBedroom :global(.one-bedroom-copy) {
+    top: 50%;
+    left: var(--edge-x);
+    width: min(460px, 32vw);
+    transform: translateY(-54%);
+    animation: none;
+  }
+
+  .twoBedroom :global(.one-bedroom-copy > p) {
+    gap: 14px;
+    font-size: clamp(9px, 0.72vw, 11px);
+    letter-spacing: 0.25em;
+  }
+
+  .twoBedroom :global(.one-bedroom-copy > p i) {
+    width: 32px;
+  }
+
+  .twoBedroom :global(.one-bedroom-copy h1) {
+    margin: 20px 0 18px;
+    font-size: clamp(44px, 4.15vw, 68px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+  }
+
+  .twoBedroom :global(.one-bedroom-copy > span) {
+    max-width: 400px;
+    font-size: clamp(14px, 1.02vw, 16.5px);
+    line-height: 1.72;
+  }
+
+  .twoBedroom :global(.two-bedroom-actions) {
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .twoBedroom :global(.two-bedroom-actions a),
+  .twoBedroom :global(.two-bedroom-actions button) {
+    min-height: 44px;
+    padding: 12px 18px;
+    font-size: clamp(8.5px, 0.65vw, 10px);
+    letter-spacing: 0.15em;
+  }
+
+  .twoBedroom :global(.one-bedroom-visual) {
+    top: 51%;
+    right: var(--edge-x);
+    width: min(55%, 1060px);
+    transform: translateY(-50%);
+    animation: none;
+  }
+
+  .twoBedroom :global(.one-bedroom-facts) {
+    right: var(--edge-x);
+    bottom: 11.5%;
+    padding: 22px 26px;
+    gap: 8px 14px;
+  }
+
+  .twoBedroom :global(.one-bedroom-facts strong) {
+    font-size: clamp(24px, 1.7vw, 28px);
+  }
+
+  .twoBedroom :global(.one-bedroom-facts span) {
+    font-size: 8px;
+    letter-spacing: 0.17em;
+  }
+
+  .twoBedroom :global(.one-bedroom-feature-strip) {
+    padding: 24px clamp(180px, 19vw, 340px);
+  }
+
+  .twoBedroom :global(.one-bedroom-feature-strip span) {
+    font-size: clamp(14px, 1vw, 16px);
+  }
+
+  .twoBedroom :global(.one-bedroom-back) {
+    left: var(--edge-x);
+    bottom: 27px;
+    font-size: 8.5px;
+    letter-spacing: 0.17em;
+  }
+}
+
 @media (max-width: 760px) {
+  .twoBedroom :global(.one-bedroom-header) {
+    padding: 18px 22px;
+  }
+
   .twoBedroom :global(.one-bedroom-hero) {
     display: flex;
     flex-direction: column;
     min-height: 100svh;
     height: auto;
-    padding: 135px 0 0;
+    padding: 128px 0 0;
     overflow: hidden;
   }
 
   .twoBedroom :global(.one-bedroom-word) {
-    top: 83px;
+    top: 80px;
     left: 50%;
     width: max-content;
     max-width: 100%;
@@ -27,20 +130,34 @@
     margin: 0 22px;
   }
 
+  .twoBedroom :global(.one-bedroom-copy > p) {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+  }
+
   .twoBedroom :global(.one-bedroom-copy h1) {
     max-width: 360px;
-    margin: 18px 0 14px;
-    font-size: clamp(42px, 11vw, 52px);
+    margin: 16px 0 14px;
+    font-size: clamp(42px, 11vw, 54px);
+    line-height: 0.98;
   }
 
   .twoBedroom :global(.one-bedroom-copy > span) {
-    max-width: 330px;
-    font-size: 12px;
-    line-height: 1.65;
+    max-width: 340px;
+    font-size: 13.5px;
+    line-height: 1.68;
   }
 
   .twoBedroom :global(.two-bedroom-actions) {
     margin-top: 22px;
+    gap: 10px;
+  }
+
+  .twoBedroom :global(.two-bedroom-actions a),
+  .twoBedroom :global(.two-bedroom-actions button) {
+    min-height: 40px;
+    padding: 10px 15px;
+    font-size: 8px;
   }
 
   .twoBedroom :global(.one-bedroom-visual) {
@@ -49,7 +166,7 @@
     right: auto;
     width: 118%;
     height: auto;
-    margin: 30px -9% 0;
+    margin: 28px -9% 0;
     aspect-ratio: auto;
   }
 
@@ -65,8 +182,8 @@
     bottom: auto;
     align-self: stretch;
     width: auto;
-    margin: 2px 22px 28px;
-    padding: 17px 22px;
+    margin: 4px 22px 26px;
+    padding: 18px 22px;
     grid-template-columns: minmax(70px, auto) 1fr;
     gap: 6px 18px;
     border-radius: 16px;
@@ -80,7 +197,7 @@
   .twoBedroom :global(.one-bedroom-facts span) {
     font-size: 9px;
     line-height: 1.3;
-    letter-spacing: .12em;
+    letter-spacing: 0.14em;
   }
 
   .twoBedroom :global(.one-bedroom-feature-strip) {
@@ -96,6 +213,7 @@
     position: relative;
     bottom: auto;
     left: auto;
-    margin: 23px 22px 30px;
+    margin: 22px 22px 30px;
+    font-size: 8px;
   }
 }
