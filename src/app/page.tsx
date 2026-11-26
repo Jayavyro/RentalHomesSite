@@ -247,7 +247,7 @@ export default function Home() {
 
       <section className="masterplan" id="masterplan" aria-hidden={phase !== "masterplan"}>
         <div className="masterplan-gallery" aria-hidden="true">
-          {masterplanViews.map((view) => <Image className={masterplanView === view.id ? "is-active" : ""} key={view.id} src={view.image} alt="" fill priority={view.id === "complete"} quality={92} sizes="100vw" />)}
+          {masterplanViews.map((view) => <Image className={masterplanView === view.id ? "is-active" : ""} key={view.id} src={view.image} alt="" fill priority={view.id === "complete"} quality={100} unoptimized sizes="100vw" />)}
         </div>
         <div className="masterplan-wash" />
         <header className="site-header">
@@ -307,19 +307,19 @@ export default function Home() {
             <div className="site-plan-stat"><strong>Rooted</strong><span>in the natural<br />landscape</span></div>
           </div>
           <div className="site-plan-frame">
-            <Image src="/media/site-plan.png" alt="Detailed site plan of the Marietta Muse community" width={4096} height={3151} sizes="100vw" />
+            <Image src="/media/site-plan.png" alt="Detailed site plan of the Marietta Muse community" width={4096} height={3151} quality={95} sizes="100vw" />
             <div className="plan-key"><span><i /> Cottages</span><span><i /> Community spaces</span><span><i /> Open nature</span></div>
           </div>
         </section>
 
         <section className="residence-grid" id="rentals">
           <article className="residence-card">
-            <Image src="/media/cottage-exterior.jpg" alt="A Marietta Muse cottage surrounded by gardens" fill sizes="(max-width: 760px) 100vw, 50vw" />
+            <Image src="/media/cottage-exterior.jpg" alt="A Marietta Muse cottage surrounded by gardens" fill quality={95} sizes="(max-width: 760px) 100vw, 50vw" />
             <div className="residence-shade" />
             <div className="residence-copy"><div className="section-kicker light">Your own retreat</div><h2>A little space<br />to call yours.</h2><p>Thoughtful proportions, a private outdoor edge and everything you need—nothing you do not.</p><a href="mailto:hello@mariettamuse.com">Discover the cottages <ArrowUpRight size={14} /></a></div>
           </article>
           <article className="residence-card">
-            <Image src="/media/cottage-interior.jpg" alt="Warm, light-filled cottage interior" fill sizes="(max-width: 760px) 100vw, 50vw" />
+            <Image src="/media/cottage-interior.jpg" alt="Warm, light-filled cottage interior" fill quality={95} sizes="(max-width: 760px) 100vw, 50vw" />
             <div className="residence-shade" />
             <div className="residence-copy"><div className="section-kicker light">Made for living</div><h2>Small footprint.<br />Full feeling.</h2><p>Natural textures and light-filled rooms make space for the moments that matter.</p><a href="mailto:hello@mariettamuse.com">Explore rentals <ArrowUpRight size={14} /></a></div>
           </article>

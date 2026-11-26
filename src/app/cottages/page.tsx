@@ -65,7 +65,8 @@ export default function CottagesPage() {
             width={2752}
             height={1536}
             priority
-            quality={95}
+            quality={100}
+            unoptimized
             sizes="100vw"
           />
         </div>
@@ -129,7 +130,7 @@ export default function CottagesPage() {
 
         <article className="cottage-detail-row cottage-layout-row" id="exterior">
           <figure className="cottage-detail-image">
-            <Image src="/media/cottages/cottage-exterior.jpg" alt="Sage green cottage with a metal roof, garden and outdoor seating" width={2752} height={1536} quality={92} sizes="(max-width: 760px) 100vw, 52vw" />
+            <Image src="/media/cottages/cottage-exterior.jpg" alt="Sage green cottage with a metal roof, garden and outdoor seating" width={2752} height={1536} quality={95} unoptimized sizes="(max-width: 760px) 100vw, 52vw" />
           </figure>
           <div className="cottage-detail-copy">
             <span>01 / Outside in</span>
@@ -140,7 +141,7 @@ export default function CottagesPage() {
 
         <article className="cottage-detail-row is-reversed cottage-layout-row" id="plan">
           <figure className="cottage-detail-image cottage-plan-image">
-            <Image src="/media/cottages/cottage-floor-plan.jpg" alt="One-bedroom cottage floor plan with an open kitchen and living room" width={2752} height={1536} quality={92} sizes="(max-width: 760px) 100vw, 52vw" />
+            <Image src="/media/cottages/cottage-floor-plan.jpg" alt="One-bedroom cottage floor plan with an open kitchen and living room" width={2752} height={1536} quality={95} unoptimized sizes="(max-width: 760px) 100vw, 52vw" />
           </figure>
           <div className="cottage-detail-copy">
             <span>02 / One-bedroom plan</span>
@@ -157,7 +158,7 @@ export default function CottagesPage() {
             <p>Sage siding, a metal roof, dark-framed windows and warm cedar create a calm, cohesive look that belongs in this landscape.</p>
           </div>
           <figure className="cottage-material-image">
-            <Image src="/media/cottages/cottage-materials.png" alt="Cottage material study showing roof, siding, windows, door and foundation" width={2048} height={1143} quality={92} sizes="(max-width: 760px) 100vw, 63vw" />
+            <Image src="/media/cottages/cottage-materials.png" alt="Cottage material study showing roof, siding, windows, door and foundation" width={2048} height={1143} quality={95} sizes="(max-width: 760px) 100vw, 63vw" />
           </figure>
         </article>
 

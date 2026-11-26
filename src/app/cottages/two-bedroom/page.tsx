@@ -45,7 +45,6 @@ export default function TwoBedroomPage() {
         </div>
 
         <picture className="one-bedroom-visual">
-          <source media="(max-width: 760px)" srcSet="/media/cottages/two-bedroom-cutout-mobile.webp" />
           <Image src="/media/cottages/two-bedroom-cutout-desktop.webp" alt={imageAlt} width={1774} height={887} priority unoptimized sizes="(max-width: 760px) 102vw, 55vw" />
         </picture>
 
