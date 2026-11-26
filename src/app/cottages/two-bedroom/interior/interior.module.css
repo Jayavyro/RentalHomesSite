@@ -80,11 +80,14 @@
 
 
 .panTrack {
+  position: relative;
   width: 100%;
   height: 100%
 }
 
 .panTrack img {
+  position: relative !important;
+  inset: auto !important;
   display: block;
   width: 100%;
   height: 100%;
@@ -141,10 +144,11 @@
 }
 
 @media(max-width:760px) {
+
   /* Full-screen horizontal pan container on mobile */
   .slide {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
@@ -156,16 +160,20 @@
   }
 
   .panTrack {
-    width: calc(100svh * 1.7915);
+    position: relative;
+    width: 179.15svh;
     height: 100svh;
     min-width: 100vw
   }
 
   .panTrack img {
-    width: 100% !important;
-    height: 100% !important;
+    position: relative !important;
+    inset: auto !important;
+    display: block !important;
+    width: 179.15svh !important;
+    height: 100svh !important;
     max-width: none !important;
-    object-fit: cover;
+    object-fit: cover !important;
     transform: none !important
   }
 
