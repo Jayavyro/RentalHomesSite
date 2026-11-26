@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, MoveHorizontal, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SiteNav from "../../../components/SiteNav";
@@ -18,7 +18,6 @@ const interiorSlides = [
     accent: "settle in.",
     detail: "Light moves through the kitchen and into a living space made for slow mornings and easy evenings.",
     desktop: "/media/cottages/two-bedroom-interior.webp",
-    mobile: "/media/cottages/two-bedroom-interior-mobile.webp",
     width: 2200,
     height: 1228,
     alt: "Warm, sunlit kitchen and adjoining living space in the two-bedroom cottage",
@@ -29,7 +28,6 @@ const interiorSlides = [
     accent: "unwind.",
     detail: "High shiplap ceilings, a ceiling fan, and an inviting living room that opens straight onto the private deck.",
     desktop: "/media/cottages/two-bedroom-living.jpg",
-    mobile: "/media/cottages/two-bedroom-living.jpg",
     width: 1024,
     height: 576,
     alt: "Sunlit living room in the two-bedroom cottage with vaulted ceiling, sofa, media console, and glass door to the outdoor deck",
@@ -57,136 +55,160 @@ function InteriorTour() {
   const [replayKey, setReplayKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reverseVideoRef = useRef<HTMLVideoElement>(null);
+  const scrollRefs = useRef<(HTMLDivElement | null)[]>([]);
   const reverseStart = useRef(0);
   const showPhoto = mode === "photo";
 
-  const changeSlide = useCallback((direction: -1 | 1) => {
-    setSlideIndex((current) => (current + direction + interiorSlides.length) % interiorSlides.length);
-  }, []);
+    const centerActiveScroll = useCallback((index: number) => {
+      const el = scrollRefs.current[index];
+      if (!el) return;
+      if (el.scrollWidth > el.clientWidth) {
+        el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+      }
+    }, []);
 
-  useEffect(() => {
-    if (!showPhoto) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      event.preventDefault();
-      changeSlide(event.key === "ArrowLeft" ? -1 : 1);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [showPhoto, changeSlide]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let cancelled = false;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.defaultPlaybackRate = PLAYBACK_SPEED;
-    video.playbackRate = PLAYBACK_SPEED;
-    video.currentTime = 0;
-
-    const tryPlay = () => {
-      if (cancelled) return;
-      video.playbackRate = PLAYBACK_SPEED;
-      video.play().catch((error: DOMException) => {
-        if (cancelled) return;
-        if (error.name === "NotAllowedError" || error.name === "NotSupportedError") {
-          setSlideIndex(0);
-          setMode("photo");
-        }
+    const changeSlide = useCallback((direction: -1 | 1) => {
+      setSlideIndex((current) => {
+        const next = (current + direction + interiorSlides.length) % interiorSlides.length;
+        window.requestAnimationFrame(() => centerActiveScroll(next));
+        return next;
       });
-    };
+    }, [centerActiveScroll]);
 
-    if (video.readyState >= 2) {
-      tryPlay();
-    } else {
-      video.load();
-      video.addEventListener("loadeddata", tryPlay, { once: true });
-    }
+    useEffect(() => {
+      if (!showPhoto) return;
+      centerActiveScroll(slideIndex);
+      const onResize = () => centerActiveScroll(slideIndex);
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    }, [showPhoto, slideIndex, centerActiveScroll]);
 
-    return () => {
-      cancelled = true;
-      video.removeEventListener("loadeddata", tryPlay);
-      video.pause();
-    };
-  }, [replayKey]);
+    useEffect(() => {
+      if (!showPhoto) return;
+      const onKeyDown = (event: KeyboardEvent) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        event.preventDefault();
+        changeSlide(event.key === "ArrowLeft" ? -1 : 1);
+      };
+      window.addEventListener("keydown", onKeyDown);
+      return () => window.removeEventListener("keydown", onKeyDown);
+    }, [showPhoto, changeSlide]);
 
-  const handleForwardTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
-    const video = event.currentTarget;
-    // Trigger the crossfade slightly before the last frame so the motion flows seamlessly into the kitchen photo
-    if (mode === "forward" && video.duration > 1 && video.currentTime >= video.duration - 0.18) {
-      setSlideIndex(0);
-      setMode("photo");
-    }
-  };
+    useEffect(() => {
+      const video = videoRef.current;
+      if (!video) return;
 
-  const handleForwardEnded = () => {
-    const video = videoRef.current;
-    // Guard against spurious/stale ended events before playback actually progressed
-    if (video && video.currentTime < 1) {
-      video.currentTime = 0;
+      let cancelled = false;
+      video.muted = true;
+      video.defaultMuted = true;
+      video.defaultPlaybackRate = PLAYBACK_SPEED;
       video.playbackRate = PLAYBACK_SPEED;
-      video.play().catch(() => {
+      video.currentTime = 0;
+
+      const tryPlay = () => {
+        if (cancelled) return;
+        video.playbackRate = PLAYBACK_SPEED;
+        video.play().catch((error: DOMException) => {
+          if (cancelled) return;
+          if (error.name === "NotAllowedError" || error.name === "NotSupportedError") {
+            setSlideIndex(0);
+            setMode("photo");
+          }
+        });
+      };
+
+      if (video.readyState >= 2) {
+        tryPlay();
+      } else {
+        video.load();
+        video.addEventListener("loadeddata", tryPlay, { once: true });
+      }
+
+      return () => {
+        cancelled = true;
+        video.removeEventListener("loadeddata", tryPlay);
+        video.pause();
+      };
+    }, [replayKey]);
+
+    const handleForwardTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
+      const video = event.currentTarget;
+      // Trigger the crossfade slightly before the last frame so the motion flows seamlessly into the kitchen photo
+      if (mode === "forward" && video.duration > 1 && video.currentTime >= video.duration - 0.18) {
         setSlideIndex(0);
         setMode("photo");
-      });
-      return;
-    }
-    setSlideIndex(0);
-    setMode("photo");
-  };
+      }
+    };
 
-  const replay = () => {
-    setSlideIndex(0);
-    setMode("forward");
-    setReplayKey((key) => key + 1);
-  };
+    const handleForwardEnded = () => {
+      const video = videoRef.current;
+      // Guard against spurious/stale ended events before playback actually progressed
+      if (video && video.currentTime < 1) {
+        video.currentTime = 0;
+        video.playbackRate = PLAYBACK_SPEED;
+        video.play().catch(() => {
+          setSlideIndex(0);
+          setMode("photo");
+        });
+        return;
+      }
+      setSlideIndex(0);
+      setMode("photo");
+    };
 
-  const goBack = () => {
-    if (mode === "reverse") return;
-    setSlideIndex(0);
-    reverseStart.current = mode === "forward" && videoRef.current?.duration
-      ? Math.max(0, videoRef.current.duration - videoRef.current.currentTime)
-      : 0;
-    videoRef.current?.pause();
-    setMode("reverse");
-  };
+    const replay = () => {
+      setSlideIndex(0);
+      setMode("forward");
+      setReplayKey((key) => key + 1);
+    };
 
-  const currentSlide = interiorSlides[slideIndex];
+    const goBack = () => {
+      if (mode === "reverse") return;
+      setSlideIndex(0);
+      centerActiveScroll(0);
+      reverseStart.current = mode === "forward" && videoRef.current?.duration
+        ? Math.max(0, videoRef.current.duration - videoRef.current.currentTime)
+        : 0;
+      videoRef.current?.pause();
+      setMode("reverse");
+    };
 
-  return (
-    <main className={`interior-page ${showPhoto ? "is-photo" : "is-film"}`}>
-      <header className="interior-header">
-        <Link className="interior-brand" href="/cottages/two-bedroom"><span>M</span><b>Marietta Muse</b></Link>
-        <SiteNav active="rentals" />
-        <a className="interior-enquire" href="mailto:hello@mariettamuse.com?subject=Two-bedroom%20cottage%20enquiry">Enquire <ArrowUpRight size={13} /></a>
-        <MobileSiteNav />
-      </header>
+    const currentSlide = interiorSlides[slideIndex];
 
-      <section className="interior-scene" aria-label="Two-bedroom cottage interior">
-        {interiorSlides.map((slide, index) => (
-          <picture
+    return (
+      <main className={`interior-page ${showPhoto ? "is-photo" : "is-film"}`}>
+        <header className="interior-header">
+          <Link className="interior-brand" href="/cottages/two-bedroom"><span>M</span><b>Marietta Muse</b></Link>
+          <SiteNav active="rentals" />
+          <a className="interior-enquire" href="mailto:hello@mariettamuse.com?subject=Two-bedroom%20cottage%20enquiry">Enquire <ArrowUpRight size={13} /></a>
+          <MobileSiteNav />
+        </header>
+
+        <section className="interior-scene" aria-label="Two-bedroom cottage interior">
+          {interiorSlides.map((slide, index) => (
+          <div
             key={slide.desktop}
+            ref={(el) => { scrollRefs.current[index] = el; }}
             className={`interior-photo ${styles.slide} ${slideIndex === index ? styles.activeSlide : ""}`}
           >
-            <source media="(max-width: 760px)" srcSet={slide.mobile} />
-            <Image
-              src={slide.desktop}
-              alt={slide.alt}
-              width={slide.width}
-              height={slide.height}
-              priority
-              quality={95}
-              sizes="100vw"
-            />
-          </picture>
+            <div className={styles.panTrack}>
+              <Image
+                src={slide.desktop}
+                alt={slide.alt}
+                width={slide.width}
+                height={slide.height}
+                priority
+                quality={95}
+                sizes="(max-width: 760px) 180vh, 100vw"
+              />
+            </div>
+          </div>
         ))}
 
         <video
           key={replayKey}
           ref={videoRef}
-          className={`interior-film ${styles.filmFast} ${mode !== "forward" ? "is-finished" : ""}`}
+          className={`interior-film ${styles.filmFull} ${styles.filmFast} ${mode !== "forward" ? "is-finished" : ""}`}
           muted
           playsInline
           preload="auto"
@@ -201,7 +223,7 @@ function InteriorTour() {
         {mode === "reverse" && (
           <video
             ref={reverseVideoRef}
-            className={`interior-film interior-reverse ${styles.filmFast}`}
+            className={`interior-film interior-reverse ${styles.filmFull} ${styles.filmFast}`}
             autoPlay
             muted
             playsInline
@@ -226,11 +248,19 @@ function InteriorTour() {
 
         {showPhoto && (
           <>
+            <div className={styles.panHint} aria-hidden="true">
+              <MoveHorizontal size={13} />
+              <span>Swipe to explore room</span>
+            </div>
+
             {slideIndex === 0 ? (
               <button
                 type="button"
                 className={`${styles.sideArrow} ${styles.sideArrowRight}`}
-                onClick={() => setSlideIndex(1)}
+                onClick={() => {
+                  setSlideIndex(1);
+                  window.requestAnimationFrame(() => centerActiveScroll(1));
+                }}
                 aria-label="View living room"
               >
                 <span>Living room</span>
@@ -240,7 +270,10 @@ function InteriorTour() {
               <button
                 type="button"
                 className={`${styles.sideArrow} ${styles.sideArrowLeft}`}
-                onClick={() => setSlideIndex(0)}
+                onClick={() => {
+                  setSlideIndex(0);
+                  window.requestAnimationFrame(() => centerActiveScroll(0));
+                }}
                 aria-label="Back to kitchen view"
               >
                 <ChevronLeft size={18} />
@@ -268,6 +301,6 @@ function InteriorTour() {
           {showPhoto ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={replay}><RotateCcw size={13} /> Replay film</button> : mode === "forward" ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={() => { setSlideIndex(0); setMode("photo"); }}>Skip film <ArrowUpRight size={13} /></button> : null}
         </div>
       </section>
-    </main>
+    </main >
   );
 }

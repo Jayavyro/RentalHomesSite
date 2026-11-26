@@ -59,6 +59,70 @@
   object-position: center;
 }
 
+/* Keep each story on the same editorial grid; alternate the middle image. */
+.details :global(.cottage-layout-row),
+.details :global(.cottage-material-card) {
+  grid-template-columns: minmax(270px, .7fr) minmax(0, 1.3fr);
+  gap: clamp(40px, 6vw, 95px);
+  padding: clamp(60px, 6vw, 88px) 0;
+}
+
+.details :global(#exterior) {
+  padding-top: clamp(48px, 5vw, 72px);
+}
+
+.details :global(#plan) {
+  grid-template-columns: minmax(0, 1.3fr) minmax(270px, .7fr);
+}
+
+.details :global(#plan .cottage-detail-image) { order: 1; }
+.details :global(#plan .cottage-detail-copy) { order: 2; }
+.details :global(#plan .cottage-plan-image) { padding: 0; }
+
+.details :global(.cottage-material-card) {
+  margin: 0 auto;
+  background: transparent;
+}
+
+.details :global(.cottage-material-image) { padding: 0; }
+
+.details :global(.cottage-layout-row .cottage-detail-copy > span),
+.details :global(.cottage-material-card .cottage-detail-copy > span) {
+  margin-bottom: 20px;
+  color: #947851;
+  font-size: 9px;
+  letter-spacing: .2em;
+}
+
+.details :global(.cottage-layout-row .cottage-detail-copy h3),
+.details :global(.cottage-material-card .cottage-detail-copy h3) {
+  color: #273027;
+  font-size: clamp(42px, 4vw, 58px);
+  line-height: 1;
+}
+
+.details :global(.cottage-layout-row .cottage-detail-copy h3 em),
+.details :global(.cottage-material-card .cottage-detail-copy h3 em) { color: #8d7d65; }
+
+.details :global(.cottage-layout-row .cottage-detail-copy > p),
+.details :global(.cottage-material-card .cottage-detail-copy > p) {
+  max-width: 365px;
+  margin-top: 22px;
+  color: #525a50;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.details :global(.cottage-plan-facts b) {
+  padding: 9px 12px;
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+
+.details :global(.cottage-cta) {
+  padding-top: 28px;
+}
+
 @media (max-width: 760px) {
   .details :global(.cottage-details-intro) {
     grid-template-columns: 1fr;
@@ -92,4 +156,28 @@
   .details :global(#exterior .cottage-detail-copy > span) { margin-bottom: 14px; font-size: 9px; }
   .details :global(#exterior .cottage-detail-copy h3) { font-size: clamp(40px, 10vw, 50px); }
   .details :global(#exterior .cottage-detail-copy > p) { margin-top: 16px; font-size: 14px; }
+
+  .details :global(.cottage-layout-row),
+  .details :global(#plan),
+  .details :global(.cottage-material-card) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 50px 0;
+  }
+
+  .details :global(#plan .cottage-detail-image),
+  .details :global(#plan .cottage-detail-copy) { order: initial; }
+
+  .details :global(#plan .cottage-detail-copy) { order: 1; }
+  .details :global(#plan .cottage-detail-image) { order: 2; }
+  .details :global(.cottage-material-card .cottage-detail-copy) { order: 1; }
+  .details :global(.cottage-material-card .cottage-material-image) { order: 2; }
+
+  .details :global(.cottage-layout-row .cottage-detail-copy h3),
+  .details :global(.cottage-material-card .cottage-detail-copy h3) { font-size: clamp(38px, 10vw, 48px); }
+
+  .details :global(.cottage-layout-row .cottage-detail-copy > p),
+  .details :global(.cottage-material-card .cottage-detail-copy > p) { margin-top: 16px; font-size: 14px; }
+
+  .details :global(.cottage-cta) { padding-top: 24px; }
 }

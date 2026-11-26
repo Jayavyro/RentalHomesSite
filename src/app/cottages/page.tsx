@@ -123,7 +123,7 @@ export default function CottagesPage() {
             <p>Small footprint <span>·</span> Full feeling</p>
             <h2>A home that leaves<br /><em>room for life.</em></h2>
           </div>
-          <p className="cottage-details-lede">Thoughtful spaces, lasting materials and a little more room to enjoy the outdoors.</p>
+          <p className="cottage-details-lede">Homes shaped for everyday comfort, with natural light, honest materials and the outdoors close by.</p>
         </div>
 
         <article className="cottage-detail-row cottage-layout-row" id="exterior">
@@ -132,8 +132,8 @@ export default function CottagesPage() {
           </figure>
           <div className="cottage-detail-copy">
             <span>01 / Outside in</span>
-            <h3>Nature at<br /><em>the door.</em></h3>
-            <p>A private garden edge, warm cedar steps and generous windows create a home that naturally opens into its setting.</p>
+            <h3>Outside feels<br /><em>close to home.</em></h3>
+            <p>Step from your front door into a quieter landscape. Garden paths, a welcoming porch and generous windows keep you connected to the outdoors.</p>
           </div>
         </article>
 
@@ -142,9 +142,9 @@ export default function CottagesPage() {
             <Image src="/media/cottages/cottage-floor-plan.jpg" alt="One-bedroom cottage floor plan with an open kitchen and living room" width={2752} height={1536} quality={92} sizes="(max-width: 760px) 100vw, 52vw" />
           </figure>
           <div className="cottage-detail-copy">
-            <span>02 / The plan</span>
-            <h3>Everything<br /><em>close by.</em></h3>
-            <p>An open kitchen and living room sit at the centre, with a full bedroom, bathroom and closet tucked into a calm private wing.</p>
+            <span>02 / One-bedroom plan</span>
+            <h3>Every space<br /><em>has a purpose.</em></h3>
+            <p>The kitchen and living room share an easy, open centre. A separate bedroom, bathroom and closet give the quieter moments their own space.</p>
             <div className="cottage-plan-facts"><b>1 bed</b><b>1 bath</b><b>Open living</b></div>
           </div>
         </article>
@@ -152,8 +152,8 @@ export default function CottagesPage() {
         <article className="cottage-material-card" id="craft">
           <div className="cottage-detail-copy">
             <span>03 / The details</span>
-            <h3>Simple,<br /><em>well made.</em></h3>
-            <p>Wood-lap siding, a metal roof, charcoal-framed windows and natural cedar bring a quiet consistency to every cottage.</p>
+            <h3>Made to feel<br /><em>at home.</em></h3>
+            <p>Sage siding, a metal roof, dark-framed windows and warm cedar create a calm, cohesive look that belongs in this landscape.</p>
           </div>
           <figure className="cottage-material-image">
             <Image src="/media/cottages/cottage-materials.png" alt="Cottage material study showing roof, siding, windows, door and foundation" width={2048} height={1143} quality={92} sizes="(max-width: 760px) 100vw, 63vw" />
