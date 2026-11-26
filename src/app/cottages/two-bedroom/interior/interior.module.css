@@ -61,7 +61,6 @@
   object-position: center !important
 }
 
-
 .slide {
   opacity: 0 !important;
   visibility: hidden;
@@ -78,7 +77,6 @@
   z-index: 0
 }
 
-
 .panTrack {
   position: relative;
   width: 100%;
@@ -94,7 +92,8 @@
   object-fit: cover;
   object-position: center;
   transform: scale(1.015);
-  transition: transform .55s cubic-bezier(.22, 1, .36, 1)
+  user-select: none;
+  -webkit-user-drag: none
 }
 
 .activeSlide .panTrack img {
@@ -144,15 +143,21 @@
 }
 
 @media(max-width:760px) {
-
   /* Full-screen horizontal pan container on mobile */
   .slide {
-    overflow-x: auto !important;
+    display: block !important;
+    width: 100vw !important;
+    height: 100svh !important;
+    overflow-x: scroll !important;
     overflow-y: hidden !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     overscroll-behavior-x: contain;
-    touch-action: pan-x
+    cursor: grab
+  }
+
+  .slide:active {
+    cursor: grabbing
   }
 
   .slide::-webkit-scrollbar {
@@ -161,9 +166,9 @@
 
   .panTrack {
     position: relative;
-    width: 179.15svh;
-    height: 100svh;
-    min-width: 100vw
+    min-width: 179.15svh !important;
+    height: 100svh !important;
+    flex-shrink: 0
   }
 
   .panTrack img {
@@ -171,6 +176,7 @@
     inset: auto !important;
     display: block !important;
     width: 179.15svh !important;
+    min-width: 179.15svh !important;
     height: 100svh !important;
     max-width: none !important;
     object-fit: cover !important;
@@ -217,16 +223,17 @@
   .status {
     position: absolute;
     bottom: calc(100% + 12px);
-    left: 4px;
-    font-size: 7px
+    transform: translateX(-50%);
+    font-size: 7px;
+    white-space: nowrap
   }
 
   .sideArrow {
     top: auto;
-    bottom: 76px;
+    bottom: 84px;
     transform: none;
     min-height: 40px;
-    padding: 9px 15px;
+    padding: 9px 14px;
     font-size: 7px
   }
 
