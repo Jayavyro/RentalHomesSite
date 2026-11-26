@@ -9,6 +9,8 @@ import SiteNav from "../../../components/SiteNav";
 import MobileSiteNav from "../../../components/MobileSiteNav";
 import styles from "./interior.module.css";
 
+const PLAYBACK_SPEED = 1.3;
+
 const interiorSlides = [
   {
     eyebrow: "The heart of home",
@@ -54,6 +56,7 @@ function InteriorTour() {
   const [slideIndex, setSlideIndex] = useState(0);
   const [replayKey, setReplayKey] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const reverseVideoRef = useRef<HTMLVideoElement>(null);
   const reverseStart = useRef(0);
   const showPhoto = mode === "photo";
 
@@ -79,13 +82,17 @@ function InteriorTour() {
     let cancelled = false;
     video.muted = true;
     video.defaultMuted = true;
+    video.defaultPlaybackRate = PLAYBACK_SPEED;
+    video.playbackRate = PLAYBACK_SPEED;
     video.currentTime = 0;
 
     const tryPlay = () => {
       if (cancelled) return;
+      video.playbackRate = PLAYBACK_SPEED;
       video.play().catch((error: DOMException) => {
         if (cancelled) return;
         if (error.name === "NotAllowedError" || error.name === "NotSupportedError") {
+          setSlideIndex(0);
           setMode("photo");
         }
       });
@@ -105,14 +112,28 @@ function InteriorTour() {
     };
   }, [replayKey]);
 
+  const handleForwardTimeUpdate = (event: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+    // Trigger the crossfade slightly before the last frame so the motion flows seamlessly into the kitchen photo
+    if (mode === "forward" && video.duration > 1 && video.currentTime >= video.duration - 0.18) {
+      setSlideIndex(0);
+      setMode("photo");
+    }
+  };
+
   const handleForwardEnded = () => {
     const video = videoRef.current;
     // Guard against spurious/stale ended events before playback actually progressed
     if (video && video.currentTime < 1) {
       video.currentTime = 0;
-      video.play().catch(() => setMode("photo"));
+      video.playbackRate = PLAYBACK_SPEED;
+      video.play().catch(() => {
+        setSlideIndex(0);
+        setMode("photo");
+      });
       return;
     }
+    setSlideIndex(0);
     setMode("photo");
   };
 
@@ -121,8 +142,10 @@ function InteriorTour() {
     setMode("forward");
     setReplayKey((key) => key + 1);
   };
+
   const goBack = () => {
     if (mode === "reverse") return;
+    setSlideIndex(0);
     reverseStart.current = mode === "forward" && videoRef.current?.duration
       ? Math.max(0, videoRef.current.duration - videoRef.current.currentTime)
       : 0;
@@ -160,36 +183,70 @@ function InteriorTour() {
           </picture>
         ))}
 
-        <video key={replayKey} ref={videoRef} className={`interior-film ${mode !== "forward" ? "is-finished" : ""}`} muted playsInline preload="auto" poster="/media/cottages/two-bedroom-video-first.jpg" onEnded={handleForwardEnded}>
+        <video
+          key={replayKey}
+          ref={videoRef}
+          className={`interior-film ${styles.filmFast} ${mode !== "forward" ? "is-finished" : ""}`}
+          muted
+          playsInline
+          preload="auto"
+          poster="/media/cottages/two-bedroom-video-first.jpg"
+          onTimeUpdate={handleForwardTimeUpdate}
+          onEnded={handleForwardEnded}
+        >
           <source src="/media/cottages/two-bedroom-interior-mobile.mp4" media="(max-width: 760px)" type="video/mp4" />
           <source src="/media/cottages/two-bedroom-interior-desktop.mp4" type="video/mp4" />
         </video>
-        {mode === "reverse" && <video className="interior-film interior-reverse" autoPlay muted playsInline preload="auto" poster="/media/cottages/two-bedroom-interior.webp" onLoadedMetadata={(event) => { event.currentTarget.currentTime = reverseStart.current; }} onEnded={() => router.push("/cottages/two-bedroom/plan")}>
-          <source src="/media/cottages/two-bedroom-interior-mobile-reverse.mp4" media="(max-width: 760px)" type="video/mp4" />
-          <source src="/media/cottages/two-bedroom-interior-desktop-reverse.mp4" media="(max-width: 760px) and (max-width: 0px)" type="video/mp4" />
-          <source src="/media/cottages/two-bedroom-interior-desktop-reverse.mp4" type="video/mp4" />
-        </video>}
+
+        {mode === "reverse" && (
+          <video
+            ref={reverseVideoRef}
+            className={`interior-film interior-reverse ${styles.filmFast}`}
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/media/cottages/two-bedroom-interior.webp"
+            onLoadedMetadata={(event) => {
+              const v = event.currentTarget;
+              v.defaultPlaybackRate = PLAYBACK_SPEED;
+              v.playbackRate = PLAYBACK_SPEED;
+              v.currentTime = reverseStart.current;
+            }}
+            onPlay={(event) => {
+              event.currentTarget.playbackRate = PLAYBACK_SPEED;
+            }}
+            onEnded={() => router.push("/cottages/two-bedroom/plan")}
+          >
+            <source src="/media/cottages/two-bedroom-interior-mobile-reverse.mp4" media="(max-width: 760px)" type="video/mp4" />
+            <source src="/media/cottages/two-bedroom-interior-desktop-reverse.mp4" type="video/mp4" />
+          </video>
+        )}
         <div className="interior-shade" aria-hidden="true" />
 
         {showPhoto && (
           <>
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sideArrowLeft}`}
-              onClick={() => changeSlide(-1)}
-              aria-label="Previous interior view"
-            >
-              <ChevronLeft size={20} />
-            </button>
-            <button
-              type="button"
-              className={`${styles.sideArrow} ${styles.sideArrowRight}`}
-              onClick={() => changeSlide(1)}
-              aria-label="Next interior view"
-            >
-              <span>{slideIndex === 0 ? "Living room" : "Kitchen view"}</span>
-              <ChevronRight size={18} />
-            </button>
+            {slideIndex === 0 ? (
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sideArrowRight}`}
+                onClick={() => setSlideIndex(1)}
+                aria-label="View living room"
+              >
+                <span>Living room</span>
+                <ChevronRight size={18} />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className={`${styles.sideArrow} ${styles.sideArrowLeft}`}
+                onClick={() => setSlideIndex(0)}
+                aria-label="Back to kitchen view"
+              >
+                <ChevronLeft size={18} />
+                <span>Kitchen view</span>
+              </button>
+            )}
 
             <div className="interior-content" key={currentSlide.eyebrow}>
               <p>{currentSlide.eyebrow}</p>
@@ -201,22 +258,14 @@ function InteriorTour() {
 
         <div className={`interior-bottom ${styles.dock}`}>
           <button className={styles.control} type="button" onClick={goBack} disabled={mode === "reverse"}><ArrowLeft size={14} /> {mode === "reverse" ? "Returning to plan" : "Back to the plan"}</button>
-          {showPhoto ? (
-            <div className={styles.WriteControls}>
-              <button type="button" className={styles.arrowBtn} onClick={() => changeSlide(-1)} aria-label="Previous interior photo">
-                <ChevronLeft size={15} />
-              </button>
-              <span className={styles.status} aria-live="polite">
-                {String(slideIndex + 1).padStart(2, "0")} / {String(interiorSlides.length).padStart(2, "0")} · {slideIndex === 0 ? "Kitchen" : "Living room"}
-              </span>
-              <button type="button" className={styles.arrowBtn} onClick={() => changeSlide(1)} aria-label="Next interior photo">
-                <ChevronRight size={15} />
-              </button>
-            </div>
-          ) : (
-            <span className={styles.status} aria-live="polite">{mode === "reverse" ? "Playing the journey back" : "Interior tour · Playing"}</span>
-          )}
-          {showPhoto ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={replay}><RotateCcw size={13} /> Replay film</button> : mode === "forward" ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={() => setMode("photo")}>Skip film <ArrowUpRight size={13} /></button> : null}
+          <span className={styles.status} aria-live="polite">
+            {mode === "reverse"
+              ? "Playing the journey back"
+              : showPhoto
+                ? `${String(slideIndex + 1).padStart(2, "0")} / ${String(interiorSlides.length).padStart(2, "0")} · ${slideIndex === 0 ? "Kitchen" : "Living room"}`
+                : "Interior tour · Playing"}
+          </span>
+          {showPhoto ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={replay}><RotateCcw size={13} /> Replay film</button> : mode === "forward" ? <button className={`${styles.control} ${styles.primary}`} type="button" onClick={() => { setSlideIndex(0); setMode("photo"); }}>Skip film <ArrowUpRight size={13} /></button> : null}
         </div>
       </section>
     </main>

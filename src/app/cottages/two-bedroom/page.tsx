@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Expand, Menu, X } from "lucide-react";
 import { useState } from "react";
 import SiteNav from "../../components/SiteNav";
+import styles from "./two-bedroom.module.css";
 
 const imageAlt = "Cutaway view of the two-bedroom cottage with two bedrooms, a bathroom, an open kitchen and living area, and an outdoor deck";
 
@@ -12,7 +13,7 @@ export default function TwoBedroomPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <main className="one-bedroom-page one-bedroom-original two-bedroom-page">
+    <main className={`one-bedroom-page one-bedroom-original two-bedroom-page ${styles.twoBedroom}`}>
       <header className="one-bedroom-header">
         <Link className="one-bedroom-brand" href="/cottages"><span>M</span><b>Marietta Muse</b></Link>
         <SiteNav className="one-bedroom-nav" active="rentals" />

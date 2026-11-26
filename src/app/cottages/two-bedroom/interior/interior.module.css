@@ -6,26 +6,23 @@
 .dock .primary:hover:not(:disabled){background:#fff}
 .status{color:#fff;font:500 9px var(--sans);letter-spacing:.18em;text-shadow:0 2px 12px rgba(0,0,0,.6);text-transform:uppercase}
 
-.slide{opacity:0;transition:opacity .65s ease;pointer-events:none}
-.activeSlide{opacity:1;pointer-events:auto}
-.slide img{transform:scale(1.02);transition:transform 3.5s ease-out}
+.filmFast{transition:opacity .42s cubic-bezier(.22,1,.36,1)!important}
+
+.slide{opacity:0!important;visibility:hidden;transition:opacity .42s cubic-bezier(.22,1,.36,1),visibility .42s;pointer-events:none;animation:none!important}
+.activeSlide{opacity:1!important;visibility:visible;pointer-events:auto;z-index:0}
+.slide img{transform:scale(1.015);transition:transform .55s cubic-bezier(.22,1,.36,1)}
 .activeSlide img{transform:scale(1)}
 
-.sideArrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 18px;border:1px solid rgba(255,255,255,.68);border-radius:999px;color:#fff;background:rgba(20,37,27,.72);box-shadow:0 12px 34px rgba(0,0,0,.22);backdrop-filter:blur(8px);font:500 9px var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:background .2s ease,transform .2s ease,color .2s ease}
+.sideArrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:12px 18px;border:1px solid rgba(255,255,255,.68);border-radius:999px;color:#fff;background:rgba(20,37,27,.78);box-shadow:0 12px 34px rgba(0,0,0,.22);backdrop-filter:blur(8px);font:500 9px var(--sans);letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:background .2s ease,transform .2s ease,color .2s ease}
 .sideArrow:hover{color:#1d2f23;background:#f6eee1;transform:translateY(-50%) scale(1.03)}
-.sideArrowLeft{left:clamp(18px,3vw,46px);width:48px;padding:0}
-.sideArrowRight{right:clamp(18px,3vw,46px)}
-
-.WriteControls{display:flex;align-items:center;gap:12px}
-.arrowBtn{display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;color:#fff;background:rgba(20,37,27,.68);backdrop-filter:blur(6px);cursor:pointer;transition:background .2s ease,color .2s ease}
-.arrowBtn:hover{color:#1d2f23;background:#f6eee1}
+.sideArrowLeft{left:clamp(22px,4vw,68px)}
+.sideArrowRight{right:clamp(22px,4vw,68px)}
 
 @media(max-width:760px){
   .dock{right:20px;bottom:20px;left:20px}
   .dock .control{min-height:44px;padding:11px 13px;font-size:7px;gap:7px}
-  .WriteControls{position:absolute;bottom:calc(100% + 12px);left:0;right:0;justify-content:center}
-  .status{font-size:7px}
-  .sideArrow{top:44%;min-height:40px;padding:9px 13px;font-size:7px}
-  .sideArrowLeft{left:14px;width:40px;padding:0}
-  .sideArrowRight{right:14px}
+  .status{position:absolute;bottom:calc(100% + 14px);left:2px;font-size:7px}
+  .sideArrow{top:44%;min-height:40px;padding:9px 14px;font-size:7px}
+  .sideArrowLeft{left:16px}
+  .sideArrowRight{right:16px}
 }

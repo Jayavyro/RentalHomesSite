@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import styles from "./cottages.module.css";
 import { ArrowDown, ArrowLeft, ArrowUpRight, ChevronDown, House, Menu, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -116,13 +117,13 @@ export default function CottagesPage() {
         </footer>
       </section>
 
-      <section className="cottage-details" aria-label="Cottage details">
+      <section className={`cottage-details ${styles.details}`} aria-label="Cottage details">
         <div className="cottage-details-intro">
           <div className="cottage-details-meta">
             <p>Small footprint <span>·</span> Full feeling</p>
-            <p className="cottage-details-lede">Considered interiors, durable materials and an easy connection to the landscape.</p>
+            <h2>A home that leaves<br /><em>room for life.</em></h2>
           </div>
-          <h2>A home that leaves<br /><em>room for life.</em></h2>
+          <p className="cottage-details-lede">Thoughtful spaces, lasting materials and a little more room to enjoy the outdoors.</p>
         </div>
 
         <article className="cottage-detail-row cottage-layout-row" id="exterior">

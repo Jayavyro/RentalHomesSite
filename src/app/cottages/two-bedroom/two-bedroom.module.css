@@ -1,0 +1,101 @@
+@media (max-width: 760px) {
+  .twoBedroom :global(.one-bedroom-hero) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    height: auto;
+    padding: 135px 0 0;
+    overflow: hidden;
+  }
+
+  .twoBedroom :global(.one-bedroom-word) {
+    top: 83px;
+    left: 50%;
+    width: max-content;
+    max-width: 100%;
+    font-size: clamp(36px, 11.2vw, 72px);
+    line-height: 1;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .twoBedroom :global(.one-bedroom-copy) {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    margin: 0 22px;
+  }
+
+  .twoBedroom :global(.one-bedroom-copy h1) {
+    max-width: 360px;
+    margin: 18px 0 14px;
+    font-size: clamp(42px, 11vw, 52px);
+  }
+
+  .twoBedroom :global(.one-bedroom-copy > span) {
+    max-width: 330px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+
+  .twoBedroom :global(.two-bedroom-actions) {
+    margin-top: 22px;
+  }
+
+  .twoBedroom :global(.one-bedroom-visual) {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 118%;
+    height: auto;
+    margin: 30px -9% 0;
+    aspect-ratio: auto;
+  }
+
+  .twoBedroom :global(.one-bedroom-visual img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .twoBedroom :global(.one-bedroom-facts) {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    align-self: stretch;
+    width: auto;
+    margin: 2px 22px 28px;
+    padding: 17px 22px;
+    grid-template-columns: minmax(70px, auto) 1fr;
+    gap: 6px 18px;
+    border-radius: 16px;
+  }
+
+  .twoBedroom :global(.one-bedroom-facts strong) {
+    font-size: 25px;
+    line-height: 1.1;
+  }
+
+  .twoBedroom :global(.one-bedroom-facts span) {
+    font-size: 9px;
+    line-height: 1.3;
+    letter-spacing: .12em;
+  }
+
+  .twoBedroom :global(.one-bedroom-feature-strip) {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 16px 22px;
+  }
+
+  .twoBedroom :global(.one-bedroom-back) {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: 23px 22px 30px;
+  }
+}
