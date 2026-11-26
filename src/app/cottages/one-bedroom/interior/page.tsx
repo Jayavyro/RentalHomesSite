@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ChevronLeft, ChevronRight, MoveHorizontal, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -9,7 +10,6 @@ import styles from "../../two-bedroom/interior/interior.module.css";
 
 const PLAYBACK_SPEED = 1.3;
 const INITIAL_SLIDE_INDEX = 2; // 0 = Bedroom (far left), 1 = Bath & Laundry (left), 2 = Kitchen & Living (center, video landing), 3 = Outdoor Deck (right)
-const INITIAL_SLIDE_INDEX = 1; // 0 = Bath & Laundry (left), 1 = Kitchen & Living (center, video landing), 2 = Outdoor Deck (right)
 
 const interiorSlides = [
   {
@@ -34,42 +34,6 @@ const interiorSlides = [
     height: 1338,
     alt: "Daylight bathroom with wood vanity, vessel sink and full bathtub alongside a stacked washer-dryer closet and bedroom doorway in the one-bedroom cottage",
   },
-  {
-    name: "Bath & Laundry",
-    eyebrow: "Everyday ease",
-    lead: "Practical,",
-    accent: "calm & bright.",
-    detail: "A full daylight bathroom with tub and wood vanity sits alongside a dedicated laundry nook and the doorway into the bedroom suite.",
-    desktop: "/media/cottages/one-bedroom-bath-laundry-hq.webp",
-    width: 2400,
-    height: 1338,
-    alt: "Daylight bathroom with wood vanity, vessel sink and full bathtub alongside a stacked washer-dryer closet and bedroom doorway in the one-bedroom cottage",
-  },
-  {
-    name: "Kitchen & Living",
-    eyebrow: "The heart of home",
-    lead: "Warm wood,",
-    accent: "open light.",
-    detail: "Vaulted timber ceilings, a full L-shaped kitchen and an airy living space designed to feel calm and complete.",
-    desktop: "/media/cottages/one-bedroom-interior-hq.webp",
-    width: 2400,
-    height: 1350,
-    alt: "Warm timber ceiling, L-shaped wood kitchen, sunlit living room and glimpse into the bedroom and bathroom of the one-bedroom cottage",
-  },
-  {
-    name: "Outdoor Deck",
-    eyebrow: "Outside in",
-    lead: "Step out to",
-    accent: "quiet air.",
-    detail: "Sage siding, a sheltered wooden porch with Adirondack chairs and a standing-seam roof set gently into the landscape.",
-    desktop: "/media/cottages/one-bedroom-exterior-hq.webp",
-    width: 2752,
-    height: 1536,
-    alt: "Sage-green one-bedroom cottage exterior with a covered wooden deck, two chairs and surrounding trees",
-  },
-];
-
-const interiorSlides = [
   {
     name: "Kitchen & Living",
     eyebrow: "The heart of home",
